@@ -1,21 +1,30 @@
 # EcoStay AI
 
-An AI-powered Homestay and Eco-Tourism Platform that helps travelers discover sustainable accommodations and generate personalized eco-friendly travel plans.
+EcoStay AI is an AI-powered Homestay and Eco-Tourism Platform that helps travelers discover sustainable accommodations, explore eco-friendly destinations, and generate personalized travel plans.
 
-## Tech Stack
+## One-Line Description
 
-- Frontend: React.js
-- Styling: Tailwind CSS
-- Backend: Node.js + Express.js
-- Database: PostgreSQL
-- Authentication: JWT
-- AI Integration: Google Gemini API
-- Deployment: Vercel + Render
+A smart web platform that helps travelers discover sustainable homestays and plan eco-friendly trips using AI.
+
+## Planned Features
+
+- User Authentication
+- Homestay Listings
+- Eco-Tourism Explorer
+- Booking Management
+- Reviews & Ratings
+- AI Trip Planner
+- AI Travel Assistant
+
+## Project Status
+
+🚧 Week 1: Project Planning and Repository Setup
 
 ## Setup
 
 Coming soon...
 
-## Project Status
+## Author
 
-Week 1: Project planning and repository initialization completed.
+Sakshi Rawat  
+AI-Assisted Full Stack Web Development Internship Project
