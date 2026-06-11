@@ -1,28 +1,80 @@
-# EcoStay AI
-
-EcoStay AI is an AI-powered Homestay and Eco-Tourism Platform that helps travelers discover sustainable accommodations, explore eco-friendly destinations, and generate personalized travel plans.
+# EcoStay AI 🌿
 
 ## One-Line Description
 
-A smart web platform that helps travelers discover sustainable homestays and plan eco-friendly trips using AI.
+EcoStay AI is a sustainable tourism platform that helps travelers discover eco-friendly homestays and nature-based travel experiences.
 
-## Planned Features
+---
 
-- User Authentication
-- Homestay Listings
-- Eco-Tourism Explorer
-- Booking Management
-- Reviews & Ratings
-- AI Trip Planner
-- AI Travel Assistant
+## Week 2 Progress
 
-## Project Status
+This week focused on building the frontend skeleton of the application using React, React Router, and Tailwind CSS.
 
-🚧 Week 1: Project Planning and Repository Setup
+### Implemented Features
 
-## Setup
+#### Home Page
 
-Coming soon...
+* Responsive Navbar component
+* Hero section with mountain background image
+* Call-to-action button for exploring homestays
+* Two reusable homestay cards displayed in a grid layout
+* Footer component with social links
+
+#### Routing
+
+The application includes the following routes:
+
+* Home (`/`)
+* About (`/about`)
+* Dashboard (`/dashboard`)
+* Login (`/login`)
+
+Each page contains:
+
+* Navbar
+* Main content area with heading and description
+* Footer
+
+#### Reusable Components
+
+The following reusable components were created inside the `/components` folder:
+
+* Navbar.jsx
+* Hero.jsx
+* Card.jsx
+* Footer.jsx
+
+#### Responsive Design
+
+* Built using Tailwind CSS
+* Responsive layout for desktop and mobile devices
+* No horizontal scrolling on smaller screens
+
+---
+
+## Tech Stack
+
+### Frontend
+
+* React.js
+* React Router DOM
+* Tailwind CSS
+* Vite
+
+### Backend (Planned)
+
+* Node.js
+* Express.js
+
+### Database (Planned)
+
+* PostgreSQL
+
+---
+
+## Current Status
+
+✅ Frontend Skeleton Completed (Week 2)
 
 ## Author
 
