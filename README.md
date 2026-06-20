@@ -1,82 +1,59 @@
 # EcoStay AI 🌿
 
-## One-Line Description
+EcoStay AI is an AI-powered eco-tourism and homestay platform that helps travelers discover sustainable accommodations and plan eco-friendly trips.
 
-EcoStay AI is a sustainable tourism platform that helps travelers discover eco-friendly homestays and nature-based travel experiences.
+## Features Implemented
 
----
+* Responsive Home Page
+* Navigation Bar, Hero Section, Cards, and Footer
+* Multi-page Routing (Home, About, Dashboard, Login)
+* Reusable UI Component Library
 
-## Week 2 Progress
+  * Button
+  * Input
+  * Modal
+  * Toast
+  * Loader
+* Component Showcase Page
+* Dark/Light Mode Toggle
+* Responsive Design (Mobile, Tablet, Desktop)
 
-This week focused on building the frontend skeleton of the application using React, React Router, and Tailwind CSS.
+### Wireframes Created
 
-### Implemented Features
-
-#### Home Page
-
-* Responsive Navbar component
-* Hero section with mountain background image
-* Call-to-action button for exploring homestays
-* Two reusable homestay cards displayed in a grid layout
-* Footer component with social links
-
-#### Routing
-
-The application includes the following routes:
-
-* Home (`/`)
-* About (`/about`)
-* Dashboard (`/dashboard`)
-* Login (`/login`)
-
-Each page contains:
-
-* Navbar
-* Main content area with heading and description
-* Footer
-
-#### Reusable Components
-
-The following reusable components were created inside the `/components` folder:
-
-* Navbar.jsx
-* Hero.jsx
-* Card.jsx
-* Footer.jsx
-
-#### Responsive Design
-
-* Built using Tailwind CSS
-* Responsive layout for desktop and mobile devices
-* No horizontal scrolling on smaller screens
-
----
+* Home Page
+* Dashboard
+* Homestay List
+* Login/Signup
+* AI Travel Planner
 
 ## Tech Stack
 
-### Frontend
-
 * React.js
 * React Router DOM
-* Tailwind CSS
-* Vite
+* JavaScript
+* CSS
+* Figma
+* Git & GitHub
 
-### Backend (Planned)
+## Getting Started
 
-* Node.js
-* Express.js
+```bash
+git clone https://github.com/sakshii0555/EcoStay-AI.git
+cd EcoStay-AI
+npm install
+npm run dev
+```
 
-### Database (Planned)
+## Future Enhancements
 
-* PostgreSQL
-
----
-
-## Current Status
-
-✅ Frontend Skeleton Completed (Week 2)
+* AI-powered itinerary generation
+* Homestay recommendation system
+* User authentication
+* Booking management
+* Backend and database integration
 
 ## Author
 
-Sakshi Rawat  
-AI-Assisted Full Stack Web Development Internship Project
+**Sakshi Rawat**
+B.Tech CSE | Graphic Era Hill University
+
