@@ -51,9 +51,26 @@ npm run dev
 * User authentication
 * Booking management
 * Backend and database integration
+  ```
+
+  🚀 Getting Started
+Clone the Repository
+git clone https://github.com/sakshii0555/EcoStay-AI.git
+Navigate to Project
+cd EcoStay-AI
+Install Dependencies
+npm install
+Run Development Server
+npm run dev
+```
+
+📖 Internship Progress
+
+This repository is being developed as part of the TBI GEU AI-Assisted Full Stack Web Development Internship. Each week introduces new features and improvements as the project evolves from wireframes to a fully functional AI-powered eco-tourism platform.
+```
 
 ## Author
 
-**Sakshi Rawat**
-B.Tech CSE | Graphic Era Hill University
+Sakshi Rawat
+
 
