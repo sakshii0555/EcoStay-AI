@@ -1,76 +1,101 @@
 # EcoStay AI 🌿
 
-EcoStay AI is an AI-powered eco-tourism and homestay platform that helps travelers discover sustainable accommodations and plan eco-friendly trips.
+EcoStay AI is an AI-powered eco-tourism and homestay platform aimed at promoting sustainable travel experiences. The platform helps travelers discover eco-friendly accommodations, explore nature-based destinations, and plan responsible trips while supporting local communities and sustainable tourism practices.
 
-## Features Implemented
+## 📌 Project Overview
+
+Traditional travel platforms primarily focus on pricing and popularity, often overlooking environmental impact and sustainability. EcoStay AI addresses this gap by providing a platform that encourages responsible tourism and helps users make eco-conscious travel decisions.
+
+The project is being developed as part of the **TBI GEU AI-Assisted Full Stack Web Development Internship** and follows an incremental development approach, with new features being added every week.
+
+## ✨ Features Implemented
+
+### Frontend Development
 
 * Responsive Home Page
-* Navigation Bar, Hero Section, Cards, and Footer
-* Multi-page Routing (Home, About, Dashboard, Login)
-* Reusable UI Component Library
+* Navigation Bar
+* Hero Section
+* Reusable Homestay Cards
+* Footer Section
+* Multi-page Routing using React Router
 
-  * Button
-  * Input
-  * Modal
-  * Toast
-  * Loader
+### UI/UX Design
+
+* Low-Fidelity Wireframes created in Figma
+* Home Page Wireframe
+* Dashboard Wireframe
+* Homestay Listing Wireframe
+* Login/Signup Wireframe
+* AI Travel Planner Wireframe
+
+### Reusable Component Library
+
+* Button Component
+* Input Component
+* Modal Component
+* Toast Notification Component
+* Loader Component
+
+### User Experience Enhancements
+
 * Component Showcase Page
-* Dark/Light Mode Toggle
-* Responsive Design (Mobile, Tablet, Desktop)
+* Responsive Design for:
 
-### Wireframes Created
+  * Mobile (375px)
+  * Tablet (768px)
+  * Desktop (1440px)
+* Dark Mode / Light Mode Toggle
 
-* Home Page
-* Dashboard
-* Homestay List
-* Login/Signup
-* AI Travel Planner
+## 🛠 Tech Stack
 
-## Tech Stack
+### Frontend
 
 * React.js
 * React Router DOM
-* JavaScript
+* JavaScript (ES6+)
 * CSS
-* Figma
-* Git & GitHub
 
-## Getting Started
+## 🚀 Getting Started
+
+### Clone Repository
 
 ```bash
 git clone https://github.com/sakshii0555/EcoStay-AI.git
-cd EcoStay-AI
+```
+
+### Install Dependencies
+
+```bash
 npm install
+```
+
+### Run Project
+
+```bash
 npm run dev
 ```
 
-## Future Enhancements
+## 🔮 Future Enhancements
 
-* AI-powered itinerary generation
-* Homestay recommendation system
-* User authentication
-* Booking management
-* Backend and database integration
-  ```
+* AI-powered trip recommendations
+* Personalized travel itineraries
+* User authentication and profile management
+* Booking management system
+* Backend integration
 
-  🚀 Getting Started
-Clone the Repository
-git clone https://github.com/sakshii0555/EcoStay-AI.git
-Navigate to Project
-cd EcoStay-AI
-Install Dependencies
-npm install
-Run Development Server
-npm run dev
-```
+## 📈 Current Progress
 
-📖 Internship Progress
+✅ Frontend Setup Completed
+✅ Responsive Home Page Created
+✅ Wireframes Designed in Figma
+✅ Reusable UI Components Developed
+✅ Dark/Light Mode Implemented
 
-This repository is being developed as part of the TBI GEU AI-Assisted Full Stack Web Development Internship. Each week introduces new features and improvements as the project evolves from wireframes to a fully functional AI-powered eco-tourism platform.
-```
+---
 
-## Author
+### 👩‍💻 Author
 
-Sakshi Rawat
+**Sakshi Rawat**
+
 
 
