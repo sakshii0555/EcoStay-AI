@@ -83,14 +83,6 @@ npm run dev
 * Booking management system
 * Backend integration
 
-## 📈 Current Progress
-
-✅ Frontend Setup Completed
-✅ Responsive Home Page Created
-✅ Wireframes Designed in Figma
-✅ Reusable UI Components Developed
-✅ Dark/Light Mode Implemented
-
 ---
 
 ### 👩‍💻 Author
