@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Mountain View Homestay",
+    "location": "Shimla",
+    "price": 2500,
+    "rating": 4.8
+  },
+  {
+    "id": 2,
+    "name": "Forest Eco Lodge",
+    "location": "Manali",
+    "price": 3000,
+    "rating": 4.7
+  },
+  {
+    "id": 3,
+    "name": "Riverside Retreat",
+    "location": "Rishikesh",
+    "price": 2200,
+    "rating": 4.6
+  }
+]
