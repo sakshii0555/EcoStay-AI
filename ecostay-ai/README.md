@@ -1,36 +1,100 @@
-# React + Vite
+# 🌿 EcoStay AI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+EcoStay AI is a MERN-based Homestay & Eco-Tourism platform that allows users to explore and manage eco-friendly homestays.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech Stack
 
-## React Compiler
+### Frontend
+- React.js
+- Vite
+- Tailwind CSS
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Backend
+- Node.js
+- Express.js
 
-## Expanding the ESLint configuration
+### Database
+- MongoDB Atlas
+- Mongoose
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Features
+
+- View all homestays
+- View homestay by ID
+- Add a new homestay
+- Update homestay
+- Delete homestay
+- Search homestays by location
+
+---
+
+## API Endpoints
+
+| Method | Endpoint |
+|---------|----------|
+| GET | `/api/homestays` |
+| GET | `/api/homestays/:id` |
+| POST | `/api/homestays` |
+| PUT | `/api/homestays/:id` |
+| DELETE | `/api/homestays/:id` |
+| GET | `/api/homestays/search?location=Shimla` |
+
+---
+
+## Database Choice
+
+This project uses **MongoDB Atlas** because it is cloud-based, scalable, and integrates easily with Node.js using Mongoose.
+
+---
+
+## Database Schema
+
+```mermaid
+erDiagram
+    HOMESTAY {
+        ObjectId _id
+        String name
+        String location
+        Number price
+        Number rating
+        Date createdAt
+        Date updatedAt
+    }
+```
+
+---
+
+## Environment Variables
+
+Create a `.env` file inside the **backend** folder.
+
+```env
+PORT=5000
+
+DATABASE_URL=your_mongodb_connection_string
+```
+
+A sample configuration is available in:
+
+```
+backend/.env.example
+```
+
+---
 
 ## Backend Setup
-
-### Install dependencies
 
 ```bash
 cd backend
 npm install
-```
-
-### Start the backend server
-
-```bash
 npm run dev
 ```
 
-The backend will run at:
+Server runs at:
 
 ```
 http://localhost:5000
@@ -41,3 +105,29 @@ API Base URL:
 ```
 http://localhost:5000/api/homestays
 ```
+
+---
+
+## Project Structure
+
+```
+backend/
+├── config/
+├── controllers/
+├── middleware/
+├── models/
+├── routes/
+├── server.js
+
+ecostay-ai/
+├── src/
+├── public/
+```
+
+---
+
+## Author
+
+**Sakshi Rawat**  
+B.Tech CSE  
+Graphic Era Hill University
