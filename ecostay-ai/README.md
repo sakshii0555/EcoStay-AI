@@ -1,6 +1,6 @@
-# 🌿 EcoStay AI
+# EcoStay AI
 
-EcoStay AI is a MERN-based Homestay & Eco-Tourism platform that allows users to explore and manage eco-friendly homestays.
+EcoStay AI is a full-stack web application that helps users discover eco-friendly homestays across different locations. The project uses a React frontend, a Node.js & Express backend, and MongoDB Atlas as the database.
 
 ---
 
@@ -21,86 +21,106 @@ EcoStay AI is a MERN-based Homestay & Eco-Tourism platform that allows users to 
 
 ---
 
-## Features
+## Why MongoDB?
 
-- View all homestays
-- View homestay by ID
-- Add a new homestay
-- Update homestay
-- Delete homestay
-- Search homestays by location
-
----
-
-## API Endpoints
-
-| Method | Endpoint |
-|---------|----------|
-| GET | `/api/homestays` |
-| GET | `/api/homestays/:id` |
-| POST | `/api/homestays` |
-| PUT | `/api/homestays/:id` |
-| DELETE | `/api/homestays/:id` |
-| GET | `/api/homestays/search?location=Shimla` |
-
----
-
-## Database Choice
-
-This project uses **MongoDB Atlas** because it is cloud-based, scalable, and integrates easily with Node.js using Mongoose.
+MongoDB is used because it is:
+- Flexible and schema-friendly
+- Easy to integrate with Node.js using Mongoose
+- Scalable for storing homestay information
+- Cloud-hosted through MongoDB Atlas
 
 ---
 
 ## Database Schema
 
-```mermaid
-erDiagram
-    HOMESTAY {
-        ObjectId _id
-        String name
-        String location
-        Number price
-        Number rating
-        Date createdAt
-        Date updatedAt
-    }
+![Database Schema](assets/W5_SchemaDiagram_26100581.png)
+
+---
+
+## Project Structure
+
+```
+EcoStay-AI/
+│
+├── assets/
+│   └── W5_SchemaDiagram_26100581.png
+│
+├── backend/
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── .env.example
+│   ├── package.json
+│   └── server.js
+│
+├── ecostay-ai/
+│   ├── src/
+│   ├── public/
+│   └── package.json
+│
+└── README.md
 ```
 
 ---
 
-## Environment Variables
+# Backend Setup
 
-Create a `.env` file inside the **backend** folder.
-
-```env
-PORT=5000
-
-DATABASE_URL=your_mongodb_connection_string
-```
-
-A sample configuration is available in:
-
-```
-backend/.env.example
-```
-
----
-
-## Backend Setup
+### 1. Install Dependencies
 
 ```bash
 cd backend
 npm install
+```
+
+### 2. Configure Environment Variables
+
+Create a `.env` file inside the `backend` folder.
+
+Example:
+
+```env
+PORT=5000
+
+MONGO_URI=your_mongodb_connection_string
+```
+
+---
+
+### 3. Start Backend Server
+
+```bash
 npm run dev
 ```
 
-Server runs at:
+Backend runs at:
 
 ```
 http://localhost:5000
 ```
 
-API Base URL:
+---
+
+# Frontend Setup
+
+Open another terminal.
+
+```bash
+cd ecostay-ai
+npm install
+npm run dev
+```
+
+Frontend runs at:
+
+```
+http://localhost:5173
+```
+
+---
+
+## API Base URL
 
 ```
 http://localhost:5000/api/homestays
@@ -108,26 +128,31 @@ http://localhost:5000/api/homestays
 
 ---
 
-## Project Structure
+## Available API Endpoints
 
-```
-backend/
-├── config/
-├── controllers/
-├── middleware/
-├── models/
-├── routes/
-├── server.js
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | /api/homestays | Get all homestays |
+| GET | /api/homestays/:id | Get homestay by ID |
+| POST | /api/homestays | Create homestay |
+| PUT | /api/homestays/:id | Update homestay |
+| DELETE | /api/homestays/:id | Delete homestay |
+| GET | /api/homestays/search/:location | Search by location |
 
-ecostay-ai/
-├── src/
-├── public/
-```
+---
+
+## Features
+
+- View eco-friendly homestays
+- Add new homestays
+- Update existing homestays
+- Delete homestays
+- Search homestays by location
+- MongoDB Atlas integration
+- RESTful CRUD APIs
 
 ---
 
 ## Author
 
-**Sakshi Rawat**  
-B.Tech CSE  
-Graphic Era Hill University
+**Sakshi Rawat**
