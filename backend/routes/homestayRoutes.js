@@ -10,22 +10,22 @@ const {
   searchHomestays,
 } = require("../controllers/homestayController");
 
-// GET all homestays
-router.get("/", getAllHomestays);
-
-// Search homestays
+// Search Homestays
 router.get("/search", searchHomestays);
 
-// GET single homestay
+// Get All Homestays
+router.get("/", getAllHomestays);
+
+// Get Homestay by ID
 router.get("/:id", getHomestayById);
 
-// POST create homestay
+// Create Homestay
 router.post("/", createHomestay);
 
-// PUT update homestay
+// Update Homestay
 router.put("/:id", updateHomestay);
 
-// DELETE homestay
+// Delete Homestay
 router.delete("/:id", deleteHomestay);
 
 module.exports = router;
