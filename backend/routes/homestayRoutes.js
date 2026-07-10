@@ -1,3 +1,4 @@
+const protect = require("../middleware/authMiddleware");
 const express = require("express");
 const router = express.Router();
 
@@ -20,12 +21,10 @@ router.get("/", getAllHomestays);
 router.get("/:id", getHomestayById);
 
 // Create Homestay
-router.post("/", createHomestay);
+router.post("/", protect, createHomestay);
 
-// Update Homestay
-router.put("/:id", updateHomestay);
+router.put("/:id", protect, updateHomestay);
 
-// Delete Homestay
-router.delete("/:id", deleteHomestay);
+router.delete("/:id", protect, deleteHomestay);
 
 module.exports = router;
