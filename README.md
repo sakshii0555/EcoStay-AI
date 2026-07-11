@@ -1,91 +1,90 @@
-# EcoStay AI 🌿
+# 🌿 EcoStay AI
 
-EcoStay AI is an AI-powered eco-tourism and homestay platform aimed at promoting sustainable travel experiences. The platform helps travelers discover eco-friendly accommodations, explore nature-based destinations, and plan responsible trips while supporting local communities and sustainable tourism practices.
+EcoStay AI is an AI-powered Homestay & Eco-Tourism Platform that promotes sustainable travel by helping users discover eco-friendly homestays and plan smarter trips.
 
-## 📌 Project Overview
+## 🚀 Features
 
-Traditional travel platforms primarily focus on pricing and popularity, often overlooking environmental impact and sustainability. EcoStay AI addresses this gap by providing a platform that encourages responsible tourism and helps users make eco-conscious travel decisions.
-
-The project is being developed as part of the **TBI GEU AI-Assisted Full Stack Web Development Internship** and follows an incremental development approach, with new features being added every week.
-
-## ✨ Features Implemented
-
-### Frontend Development
-
-* Responsive Home Page
-* Navigation Bar
-* Hero Section
-* Reusable Homestay Cards
-* Footer Section
-* Multi-page Routing using React Router
-
-### UI/UX Design
-
-* Low-Fidelity Wireframes created in Figma
-* Home Page Wireframe
-* Dashboard Wireframe
-* Homestay Listing Wireframe
-* Login/Signup Wireframe
-* AI Travel Planner Wireframe
-
-### Reusable Component Library
-
-* Button Component
-* Input Component
-* Modal Component
-* Toast Notification Component
-* Loader Component
-
-### User Experience Enhancements
-
-* Component Showcase Page
-* Responsive Design for:
-
-  * Mobile (375px)
-  * Tablet (768px)
-  * Desktop (1440px)
-* Dark Mode / Light Mode Toggle
+- 🔐 User Authentication (Register/Login)
+- 🔑 JWT Authentication
+- 🌐 Google OAuth Login
+- 🛡️ Protected Routes
+- 🏡 Homestay CRUD Operations
+- 🔍 Search Homestays
+- 🚦 API Rate Limiting
+- 🤖 AI Travel Planner *(In Progress)*
 
 ## 🛠 Tech Stack
 
-### Frontend
+**Frontend**
+- React.js
+- Vite
+- Tailwind CSS
+- React Router DOM
 
-* React.js
-* React Router DOM
-* JavaScript (ES6+)
-* CSS
+**Backend**
+- Node.js
+- Express.js
+- MongoDB Atlas
+- Mongoose
 
-## 🚀 Getting Started
+**Authentication**
+- JWT
+- Passport.js
+- Google OAuth
+- bcrypt.js
 
-### Clone Repository
+## 📂 Project Structure
 
-```bash
-git clone https://github.com/sakshii0555/EcoStay-AI.git
+```
+EcoStay-AI
+├── frontend
+├── backend
+└── README.md
 ```
 
-### Install Dependencies
+## ⚙️ Installation
 
 ```bash
+# Clone Repository
+git clone <your-repository-url>
+
+# Frontend
+cd frontend
 npm install
-```
+npm run dev
 
-### Run Project
-
-```bash
+# Backend
+cd backend
+npm install
 npm run dev
 ```
 
-## 🔮 Future Enhancements
+## 🔗 API Endpoints
 
-* AI-powered trip recommendations
-* Personalized travel itineraries
-* User authentication and profile management
-* Booking management system
-* Backend integration
+### Authentication
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `GET /api/auth/google`
 
----
+### Homestays
+- `GET /api/homestays`
+- `GET /api/homestays/search`
+- `POST /api/homestays` *(Protected)*
+- `PUT /api/homestays/:id` *(Protected)*
+- `DELETE /api/homestays/:id` *(Protected)*
 
-### 👩‍💻 Author
+## 📌 Status
+
+✅ Authentication Completed  
+✅ Google OAuth  
+✅ JWT Protected APIs  
+✅ Homestay CRUD  
+🚧 AI Travel Planner (In Progress)
+
+## 👩‍💻 Developer
+
+**Sakshi Rawat**  
+B.Tech CSE | Graphic Era Hill University
 
 **Sakshi Rawat**
 
