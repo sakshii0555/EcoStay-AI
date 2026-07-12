@@ -1,46 +1,64 @@
 # 🌿 EcoStay AI
 
-EcoStay AI is an AI-powered Homestay & Eco-Tourism Platform that promotes sustainable travel by helping users discover eco-friendly homestays and plan smarter trips.
+EcoStay AI is an AI-powered **Homestay & Eco-Tourism Platform** designed to promote sustainable travel. It enables users to discover eco-friendly homestays, securely manage their accounts, and explore intelligent travel planning features.
 
-## 🚀 Features
+---
 
-- 🔐 User Authentication (Register/Login)
-- 🔑 JWT Authentication
-- 🌐 Google OAuth Login
-- 🛡️ Protected Routes
-- 🏡 Homestay CRUD Operations
-- 🔍 Search Homestays
-- 🚦 API Rate Limiting
-- 🤖 AI Travel Planner *(In Progress)*
+## ✨ Features
+
+### 🔐 Authentication
+- User Registration & Login
+- JWT Authentication
+- Google OAuth 2.0
+- Protected Routes
+- API Rate Limiting
+- Input Validation
+
+### 🏡 Homestay Management
+- Browse Homestays
+- Search Homestays
+- View Homestay Details
+- Add, Update & Delete Homestays *(Protected)*
+
+### 🤖 AI Features *(Coming Soon)*
+- AI Travel Planner
+- Personalized Trip Recommendations
+- Sustainable Destination Suggestions
+
+---
 
 ## 🛠 Tech Stack
 
-**Frontend**
+### Frontend
 - React.js
 - Vite
 - Tailwind CSS
 - React Router DOM
 
-**Backend**
+### Backend
 - Node.js
 - Express.js
 - MongoDB Atlas
 - Mongoose
 
-**Authentication**
+### Authentication
 - JWT
 - Passport.js
-- Google OAuth
+- Google OAuth 2.0
 - bcrypt.js
+
+---
 
 ## 📂 Project Structure
 
-```
+```text
 EcoStay-AI
-├── frontend
-├── backend
+├── frontend/
+├── backend/
 └── README.md
 ```
+
+---
 
 ## ⚙️ Installation
 
@@ -59,34 +77,36 @@ npm install
 npm run dev
 ```
 
-## 🔗 API Endpoints
+---
 
-### Authentication
-- `POST /api/auth/register`
-- `POST /api/auth/login`
-- `GET /api/auth/google`
+## 📌 Current Status
 
-### Homestays
-- `GET /api/homestays`
-- `GET /api/homestays/search`
-- `POST /api/homestays` *(Protected)*
-- `PUT /api/homestays/:id` *(Protected)*
-- `DELETE /api/homestays/:id` *(Protected)*
+- ✅ User Authentication
+- ✅ JWT Authorization
+- ✅ Google OAuth Integration
+- ✅ Protected APIs
+- ✅ Homestay CRUD Operations
+- 🚧 AI Travel Planner
+- 🚧 Booking System
 
-## 📌 Status
+---
 
-✅ Authentication Completed  
-✅ Google OAuth  
-✅ JWT Protected APIs  
-✅ Homestay CRUD  
-🚧 AI Travel Planner (In Progress)
+## 🌱 Future Enhancements
+
+- AI Itinerary Generator
+- Wishlist & Favorites
+- Online Booking System
+- Reviews & Ratings
+- Interactive Maps
+- Weather Integration
+
+---
 
 ## 👩‍💻 Developer
 
 **Sakshi Rawat**  
-B.Tech CSE | Graphic Era Hill University
-
-**Sakshi Rawat**
+🎓 B.Tech Computer Science & Engineering  
+📍 Graphic Era Hill University, Dehradun
 
 
 
