@@ -20,11 +20,6 @@ const app = express();
 // ======================
 connectDB();
 
-// ======================
-// Debug (Remove later if you want)
-// ======================
-console.log("GOOGLE_CLIENT_ID:", process.env.GOOGLE_CLIENT_ID);
-console.log("GOOGLE_CLIENT_SECRET:", process.env.GOOGLE_CLIENT_SECRET);
 
 // ======================
 // Middleware
@@ -49,9 +44,11 @@ app.use(passport.session());
 // ======================
 const homestayRoutes = require("./routes/homestayRoutes");
 const authRoutes = require("./routes/authRoutes");
+const aiRoutes = require("./routes/aiRoutes");
 
 app.use("/api/homestays", homestayRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/ai", aiRoutes);
 
 // ======================
 // Error Handler
