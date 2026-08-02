@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Card from "../components/Card";
@@ -6,6 +6,20 @@ import Footer from "../components/Footer";
 
 function Home() {
   const [darkMode, setDarkMode] = useState(false);
+  const [homestays, setHomestays] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/homestays")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          setHomestays(data.data);
+        }
+      })
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <div
@@ -28,16 +42,27 @@ function Home() {
 
       <Hero />
 
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-6 p-8">
-        <Card
-          title="Mountain View Homestay"
-          description="Experience nature in a sustainable mountain retreat."
-        />
+      <div className="max-w-6xl mx-auto p-8">
 
-        <Card
-          title="Forest Eco Lodge"
-          description="Stay close to nature while supporting responsible tourism."
-        />
+        {loading ? (
+          <h2 className="text-center text-xl font-semibold">
+            Loading homestays...
+          </h2>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {homestays.map((homestay) => (
+              <Card
+                key={homestay._id}
+                title={homestay.name}
+                description={homestay.location}
+                image={homestay.image}
+                price={homestay.price}
+                rating={homestay.rating}
+              />
+            ))}
+          </div>
+        )}
+
       </div>
 
       <Footer />

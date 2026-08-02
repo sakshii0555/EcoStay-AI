@@ -37,12 +37,12 @@ function Register() {
       const data = await response.json();
 
       if (data.success) {
-        alert("Registration Successful!");
-
-        navigate("/login");
-      } else {
-        alert(data.message);
-      }
+  alert("Registration Successful!");
+  navigate("/login");
+} else {
+  console.log(data);
+  alert(data.message || JSON.stringify(data));
+}
     } catch (error) {
       console.error(error);
       alert("Registration Failed");

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
+
 function Dashboard() {
   const [homestays, setHomestays] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -17,13 +18,23 @@ function Dashboard() {
   });
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/homestays")
-      .then((res) => res.json())
-      .then((data) => {
+  const token = localStorage.getItem("token");
+
+  fetch("http://localhost:5000/api/homestays", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.success) {
         setHomestays(data.data);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+      } else {
+        console.error(data.message);
+      }
+    })
+    .catch((err) => console.error(err));
+}, []);
 
   useEffect(() => {
     if (showModal) {
