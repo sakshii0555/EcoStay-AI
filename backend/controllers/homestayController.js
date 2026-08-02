@@ -3,7 +3,9 @@ const Homestay = require("../models/Homestay");
 // GET All Homestays
 const getAllHomestays = async (req, res, next) => {
   try {
-    const homestays = await Homestay.find();
+    const homestays = await Homestay.find({
+  user: req.user.id,
+});
 
     res.status(200).json({
       success: true,
@@ -39,7 +41,10 @@ const getHomestayById = async (req, res, next) => {
 // CREATE Homestay
 const createHomestay = async (req, res, next) => {
   try {
-    const homestay = await Homestay.create(req.body);
+    const homestay = await Homestay.create({
+  ...req.body,
+  user: req.user.id,
+});
 
     res.status(201).json({
       success: true,
@@ -54,7 +59,11 @@ const createHomestay = async (req, res, next) => {
 // UPDATE Homestay
 const updateHomestay = async (req, res, next) => {
   try {
-    const homestay = await Homestay.findByIdAndUpdate(
+    const homestay = await Homestay.findOneAndUpdate(
+  {
+    _id: req.params.id,
+    user: req.user.id,
+  },
       req.params.id,
       req.body,
       {
@@ -83,7 +92,10 @@ const updateHomestay = async (req, res, next) => {
 // DELETE Homestay
 const deleteHomestay = async (req, res, next) => {
   try {
-    const homestay = await Homestay.findByIdAndDelete(req.params.id);
+    const homestay = await Homestay.findOneAndDelete({
+  _id: req.params.id,
+  user: req.user.id,
+});
 
     if (!homestay) {
       return res.status(404).json({

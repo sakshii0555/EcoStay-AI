@@ -15,7 +15,7 @@ const {
 router.get("/search", searchHomestays);
 
 // Get All Homestays
-router.get("/", getAllHomestays);
+router.get("/", protect, getAllHomestays);
 
 // Get Homestay by ID
 router.get("/:id", getHomestayById);
