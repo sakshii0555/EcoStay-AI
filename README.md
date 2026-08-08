@@ -1,33 +1,24 @@
 # 🌿 EcoStay AI
 
-EcoStay AI is an AI-powered **Homestay & Eco-Tourism Platform** designed to promote sustainable travel. It enables users to discover eco-friendly homestays, securely manage their accounts, and explore intelligent travel planning features.
+## 🚀 Live Deployment
+
+EcoStay AI is deployed and accessible through the following URLs:
+
+### 🌐 Frontend
+
+https://eco-stay-ai-nu.vercel.app
+
+The frontend is deployed using **Vercel**.
+
+### ⚙️ Backend API
+
+https://ecostay-ai-3io2.onrender.com
+
+The backend is deployed using **Render** and provides the REST API for authentication, homestays, and AI travel planning.
 
 ---
 
-## ✨ Features
-
-### 🔐 Authentication
-- User Registration & Login
-- JWT Authentication
-- Google OAuth 2.0
-- Protected Routes
-- API Rate Limiting
-- Input Validation
-
-### 🏡 Homestay Management
-- Browse Homestays
-- Search Homestays
-- View Homestay Details
-- Add, Update & Delete Homestays *(Protected)*
-
-### 🤖 AI Features *(Coming Soon)*
-- AI Travel Planner
-- Personalized Trip Recommendations
-- Sustainable Destination Suggestions
-
----
-
-## 🛠 Tech Stack
+## 🛠️ Tech Stack
 
 ### Frontend
 - React.js
@@ -38,69 +29,36 @@ EcoStay AI is an AI-powered **Homestay & Eco-Tourism Platform** designed to prom
 ### Backend
 - Node.js
 - Express.js
-- MongoDB Atlas
+- MongoDB
 - Mongoose
 
 ### Authentication
-- JWT
-- Passport.js
-- Google OAuth 2.0
+- JWT Authentication
 - bcrypt.js
+- Google OAuth using Passport.js
+
+### AI
+- Google Gemini API
+- Gemini 2.5 Flash
+
+### Deployment
+- Vercel — Frontend
+- Render — Backend
 
 ---
 
-## 📂 Project Structure
+## ⚠️ Known Deployment Limitations
 
-```text
-EcoStay-AI
-├── frontend/
-├── backend/
-└── README.md
-```
+EcoStay AI currently uses free-tier hosting services for deployment.
 
----
+### Render Backend
+The backend uses a Render free instance. The service may spin down after a period of inactivity. As a result, the first request after inactivity can take approximately **50 seconds or more** while the service starts again.
 
-## ⚙️ Installation
+### Vercel Frontend
+The frontend is deployed on Vercel's free tier. Performance and usage are subject to Vercel's free-tier limits.
 
-```bash
-# Clone Repository
-git clone <your-repository-url>
-
-# Frontend
-cd frontend
-npm install
-npm run dev
-
-# Backend
-cd backend
-npm install
-npm run dev
-```
-
----
-
-## 📌 Current Status
-
-- ✅ User Authentication
-- ✅ JWT Authorization
-- ✅ Google OAuth Integration
-- ✅ Protected APIs
-- ✅ Homestay CRUD Operations
-- 🚧 AI Travel Planner
-- 🚧 Booking System
-
----
-
-## 🌱 Future Enhancements
-
-- AI Itinerary Generator
-- Wishlist & Favorites
-- Online Booking System
-- Reviews & Ratings
-- Interactive Maps
-- Weather Integration
-
----
+### External APIs
+The AI Travel Planner depends on the Google Gemini API. AI functionality is subject to the API's availability, quota, and usage limits.
 
 ## 👩‍💻 Developer
 
