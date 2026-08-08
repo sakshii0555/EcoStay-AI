@@ -1,4 +1,4 @@
-import { Button, Input, Modal, Toast, Loader } from "../components/UI";
+import { Button, Input, Modal, Toast, Loader } from "../components/UI/Index.js";
 import { useState } from "react";
 
 function Showcase() {
