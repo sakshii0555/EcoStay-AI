@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import AIPlanner from "./pages/AIPlanner";
 import Destination from "./pages/Destination";
 import Statepage from "./pages/Statepage";
+import DistrictPage from "./pages/DistrictPage";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -29,6 +30,10 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/ai-planner" element={<AIPlanner />} />
         <Route path="/showcase" element={<Showcase />} />
+        <Route
+    path="/district/:stateId/:districtId"
+    element={<DistrictPage />}
+/>
 
         {/* Protected Dashboard */}
         <Route
