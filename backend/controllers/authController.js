@@ -34,11 +34,11 @@ const register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create User
+    // New registrations automatically become "user"
     const user = await User.create({
       name,
       email,
       password: hashedPassword,
-      // role will automatically be "user"
     });
 
     res.status(201).json({
@@ -89,51 +89,6 @@ const login = async (req, res) => {
       });
     }
 
-     // =======================
-// MAKE USER ADMIN
-// =======================
-const makeAdmin = async (req, res) => {
-  try {
-    const { email } = req.body;
-
-    if (!email) {
-      return res.status(400).json({
-        success: false,
-        message: "Email is required.",
-      });
-    }
-
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found.",
-      });
-    }
-
-    user.role = "admin";
-    await user.save();
-
-    res.status(200).json({
-      success: true,
-      message: "User is now an admin.",
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
-    });
-  } catch (error) {
-    console.error("MAKE ADMIN ERROR:", error);
-
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
     // Compare Password
     const isMatch = await bcrypt.compare(password, user.password);
 
@@ -181,5 +136,4 @@ const makeAdmin = async (req, res) => {
 module.exports = {
   register,
   login,
-  makeAdmin,
 };

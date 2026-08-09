@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import StateCard from "../components/StateCard";
+import states from "../data/states";
 
 function Dashboard() {
     const [homestays, setHomestays] = useState([]);
@@ -8,11 +10,18 @@ function Dashboard() {
     const [isEditing, setIsEditing] = useState(false);
     const [editId, setEditId] = useState("");
 
-    // Get logged-in user
+    // ==============================
+    // GET LOGGED-IN USER
+    // ==============================
+
     const storedUser = localStorage.getItem("user");
     const user = storedUser ? JSON.parse(storedUser) : null;
 
     const isAdmin = user?.role === "admin";
+
+    // ==============================
+    // NEW HOMESTAY
+    // ==============================
 
     const [newHomestay, setNewHomestay] = useState({
         name: "",
@@ -24,9 +33,12 @@ function Dashboard() {
 
     // ==============================
     // FETCH HOMESTAYS
+    // ADMIN ONLY
     // ==============================
 
     useEffect(() => {
+        if (!isAdmin) return;
+
         const token = localStorage.getItem("token");
 
         fetch("http://localhost:5000/api/homestays", {
@@ -43,7 +55,7 @@ function Dashboard() {
                 }
             })
             .catch((err) => console.error(err));
-    }, []);
+    }, [isAdmin]);
 
     // ==============================
     // PREVENT BACKGROUND SCROLL
@@ -237,6 +249,61 @@ function Dashboard() {
         });
     };
 
+    // =========================================================
+    // NORMAL USER DASHBOARD
+    // =========================================================
+
+    if (!isAdmin) {
+        return (
+            <div className="bg-gray-50 min-h-screen">
+                <Navbar />
+
+                <main className="max-w-6xl mx-auto pt-32 px-6 pb-16">
+
+                    {/* HEADER */}
+
+                    <div className="text-center mb-12">
+
+                        <p className="text-green-600 font-semibold uppercase tracking-[0.2em] text-sm">
+                            EcoStay AI
+                        </p>
+
+                        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mt-3">
+                            Explore Destinations 🌿
+                        </h1>
+
+                        <p className="text-gray-600 text-lg mt-4 max-w-2xl mx-auto">
+                            Discover beautiful states, cities, local
+                            attractions, restaurants and eco-friendly
+                            homestays across India.
+                        </p>
+
+                    </div>
+
+                    {/* STATE CARDS */}
+
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                        {states.map((state) => (
+                            <StateCard
+                                key={state.id}
+                                state={state}
+                            />
+                        ))}
+
+                    </div>
+
+                </main>
+
+                <Footer />
+            </div>
+        );
+    }
+
+    // =========================================================
+    // ADMIN DASHBOARD
+    // =========================================================
+
     return (
         <>
             <Navbar />
@@ -248,48 +315,42 @@ function Dashboard() {
                 <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-10">
 
                     <div>
+
                         <p className="text-green-600 font-semibold uppercase tracking-wider text-sm">
-                            {isAdmin
-                                ? "Admin Dashboard"
-                                : "Traveler Dashboard"}
+                            Admin Dashboard
                         </p>
 
                         <h1 className="text-4xl font-bold mt-2">
-                            {isAdmin
-                                ? "Manage Homestays"
-                                : "Explore Homestays"}
+                            Manage Homestays
                         </h1>
 
                         <p className="text-gray-600 mt-2">
-                            {isAdmin
-                                ? "Manage the homestays available on EcoStay AI."
-                                : "Discover comfortable stays for your next journey."}
+                            Manage the homestays available on EcoStay AI.
                         </p>
+
                     </div>
 
-                    {/* ADD BUTTON — ADMIN ONLY */}
+                    {/* ADD BUTTON */}
 
-                    {isAdmin && (
-                        <button
-                            onClick={() => {
-                                setIsEditing(false);
-                                setEditId("");
+                    <button
+                        onClick={() => {
+                            setIsEditing(false);
+                            setEditId("");
 
-                                setNewHomestay({
-                                    name: "",
-                                    location: "",
-                                    image: "",
-                                    price: "",
-                                    rating: "",
-                                });
+                            setNewHomestay({
+                                name: "",
+                                location: "",
+                                image: "",
+                                price: "",
+                                rating: "",
+                            });
 
-                                setShowModal(true);
-                            }}
-                            className="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-lg font-semibold transition"
-                        >
-                            + Add Homestay
-                        </button>
-                    )}
+                            setShowModal(true);
+                        }}
+                        className="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-lg font-semibold transition"
+                    >
+                        + Add Homestay
+                    </button>
 
                 </div>
 
@@ -297,9 +358,11 @@ function Dashboard() {
 
                 {homestays.length === 0 ? (
                     <div className="text-center py-16">
+
                         <p className="text-gray-500 text-lg">
                             No homestays available at the moment.
                         </p>
+
                     </div>
                 ) : (
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -334,57 +397,43 @@ function Dashboard() {
                                         ⭐ {homestay.rating}
                                     </p>
 
-                                    {/* ADMIN CONTROLS ONLY */}
+                                    <div className="flex gap-3 mt-5">
 
-                                    {isAdmin && (
-                                        <div className="flex gap-3 mt-5">
+                                        <button
+                                            onClick={() =>
+                                                editHomestay(homestay)
+                                            }
+                                            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
+                                        >
+                                            Edit
+                                        </button>
 
-                                            <button
-                                                onClick={() =>
-                                                    editHomestay(homestay)
-                                                }
-                                                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
-                                            >
-                                                Edit
-                                            </button>
+                                        <button
+                                            onClick={() =>
+                                                deleteHomestay(
+                                                    homestay._id
+                                                )
+                                            }
+                                            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg"
+                                        >
+                                            Delete
+                                        </button>
 
-                                            <button
-                                                onClick={() =>
-                                                    deleteHomestay(
-                                                        homestay._id
-                                                    )
-                                                }
-                                                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg"
-                                            >
-                                                Delete
-                                            </button>
-
-                                        </div>
-                                    )}
-
-                                    {/* USER ACTION */}
-
-                                    {!isAdmin && (
-                                        <div className="mt-5">
-                                            <button
-                                                className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition"
-                                            >
-                                                View Details
-                                            </button>
-                                        </div>
-                                    )}
+                                    </div>
 
                                 </div>
+
                             </div>
                         ))}
 
                     </div>
                 )}
+
             </div>
 
             {/* ================= ADD / EDIT MODAL ================= */}
 
-            {showModal && isAdmin && (
+            {showModal && (
                 <div className="fixed inset-0 z-[9999] bg-black/60 flex items-center justify-center px-4">
 
                     <div className="bg-white rounded-xl p-8 w-full max-w-[420px] shadow-2xl">
@@ -484,6 +533,7 @@ function Dashboard() {
                         </div>
 
                     </div>
+
                 </div>
             )}
 

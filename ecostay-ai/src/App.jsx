@@ -8,6 +8,7 @@ import Showcase from "./pages/Showcase";
 import Register from "./pages/Register";
 import AIPlanner from "./pages/AIPlanner";
 import Destination from "./pages/Destination";
+import Statepage from "./pages/Statepage";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -22,6 +23,7 @@ function App() {
         {/* Authentication */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/state/:stateId" element={<Statepage />} />
 
         {/* Other Pages */}
         <Route path="/about" element={<About />} />
