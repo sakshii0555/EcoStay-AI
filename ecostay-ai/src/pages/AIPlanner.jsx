@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Chatbot from "../components/Chatbot";
 
 function AIPlanner() {
     const [destination, setDestination] = useState("");
@@ -207,54 +208,13 @@ function AIPlanner() {
 
                 </div>
 
+            <Chatbot />
 
-                {/* ================= FLOATING CHATBOT ================= */}
-                <button
-                    type="button"
-                    title="Chat with EcoStay AI"
-                    onClick={() =>
-                        alert(
-                            "EcoStay AI Assistant is coming soon! 🤖🌿"
-                        )
-                    }
-                    className="fixed bottom-8 right-8 z-50 group"
-                >
+        </div>
 
-                    {/* Glow */}
-                    <div className="absolute inset-0 bg-green-400 rounded-full blur-xl opacity-40 group-hover:opacity-70 transition duration-300"></div>
-
-                    {/* Button */}
-                    <div className="relative w-16 h-16 md:w-18 md:h-18 rounded-full bg-green-600 hover:bg-green-500 flex items-center justify-center shadow-2xl border-2 border-white/30 transition duration-300 group-hover:scale-110">
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-8 h-8 text-white"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M8 10h.01M12 10h.01M16 10h.01M9 16h6m5-4a8 8 0 11-3.32 6.47L21 21l-1.53-4.32A7.96 7.96 0 0020 12z"
-                            />
-                        </svg>
-
-                    </div>
-
-                    {/* Small AI label */}
-                    <span className="absolute -top-2 -right-2 bg-white text-green-700 text-xs font-bold px-2 py-1 rounded-full shadow-md">
-                        AI
-                    </span>
-
-                </button>
-
-            </div>
-
-            <Footer />
-        </>
-    );
+        <Footer />
+    </>
+);
 }
 
 export default AIPlanner;
