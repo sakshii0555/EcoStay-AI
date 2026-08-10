@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Card from "../components/Card";
 import Footer from "../components/Footer";
-import destinations from "../data/destination";
+import destinations from "../data/destination.js";
 
 function Destination() {
     const { city } = useParams();

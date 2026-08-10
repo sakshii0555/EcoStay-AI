@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { Link } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
@@ -6,156 +5,216 @@ import Hero from "../components/Hero";
 import Footer from "../components/Footer";
 
 function Home() {
-  const destinationsRef = useRef(null);
+    return (
+        <div>
 
-  const handleExplore = () => {
-    destinationsRef.current?.scrollIntoView({
-      behavior: "smooth",
-    });
-  };
+            <Navbar />
 
-  const destinations = [
-  {
-    name: "Delhi",
-    slug: "delhi",
-    image:
-      "https://images.unsplash.com/photo-1587474260584-136574528ed5",
-  },
-  {
-    name: "Jaipur",
-    slug: "jaipur",
-    image:
-      "https://images.unsplash.com/photo-1599661046289-e31897846e41",
-  },
-  {
-    name: "Goa",
-    slug: "goa",
-    image:
-      "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2",
-  },
-  {
-    name: "Manali",
-    slug: "manali",
-    image:
-      "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23",
-  },
-  {
-    name: "Kerala",
-    slug: "kerala",
-    image:
-      "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944",
-  },
-  {
-    name: "Mumbai",
-    slug: "mumbai",
-    image:
-      "https://images.unsplash.com/photo-1570168007204-dfb528c6958f",
-  },
-  {
-    name: "Udaipur",
-    slug: "udaipur",
-    image:
-      "https://images.unsplash.com/photo-1477587458883-47145ed94245",
-  },
-  {
-    name: "Rishikesh",
-    slug: "rishikesh",
-    image:
-      "https://images.unsplash.com/photo-1597074866923-dc0589150358",
-  },
-  {
-    name: "Mysore",
-    slug: "mysore",
-    image:
-      "https://images.unsplash.com/photo-1524613032530-449a5d94c285?auto=format&fit=crop&w=1200&q=80",
-  },
-];
+            {/* ================= HERO ================= */}
 
-  return (
-    <div className="bg-white text-black min-h-screen">
-      <Navbar />
+            <Hero />
 
-      {/* Hero */}
-      <Hero onExplore={handleExplore} />
+            {/* ================= UTTARAKHAND INTRO ================= */}
 
-      {/* Destinations */}
-      <section
-        ref={destinationsRef}
-        className="bg-white py-20 px-6"
-      >
-        <div className="max-w-7xl mx-auto">
+            <section className="relative py-20 px-6 overflow-hidden">
 
-          {/* Heading */}
-          <div className="text-center mb-12">
-            <h2 className="text-5xl md:text-6xl font-bold tracking-wide">
-              DESTINATIONS
-            </h2>
+                {/* Mountain background */}
+                <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{
+                        backgroundImage:
+                            "url('/images/explore/mt.png')",
+                    }}
+                ></div>
 
-            <p className="text-xl md:text-2xl text-gray-600 mt-4">
-              Find a place that feels right for your next journey.
-            </p>
-          </div>
+                {/* Soft overlay */}
+                <div className="absolute inset-0 bg-white/65"></div>
 
-          {/* Destination Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {destinations.map((destination) => (
-              <div
-                key={destination.slug}
-                className="relative h-[430px] rounded-2xl overflow-hidden shadow-lg group"
-              >
-                {/* Image */}
-                <img
-                  src={destination.image}
-                  alt={destination.name}
-                  className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
-                />
+                {/* Content */}
+                <div className="relative z-10 max-w-6xl mx-auto text-center">
 
-                {/* Dark overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <p className="text-green-600 font-semibold uppercase tracking-[0.2em]">
+                        Explore EcoStay AI
+                    </p>
 
-                {/* City + Button */}
-                <div className="absolute bottom-0 left-0 right-0 text-center text-white p-8">
+                    <h2 className="text-4xl md:text-5xl font-bold mt-3">
+                        Discover Uttarakhand Differently
+                    </h2>
 
-                  <h3 className="text-4xl font-bold mb-5">
-                    {destination.name}
-                  </h3>
+                    <p className="max-w-3xl mx-auto text-gray-600 text-lg md:text-xl leading-8 mt-6">
+                        From quiet Himalayan villages and ancient temples to
+                        breathtaking valleys and welcoming local homestays,
+                        EcoStay AI helps you experience Uttarakhand beyond
+                        the usual tourist trail.
+                    </p>
 
-                  <Link
-                    to={`/destination/${destination.slug}`}
-                    className="inline-block bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-full font-semibold text-lg transition duration-300"
-                  >
-                    Discover More
-                  </Link>
+                    {/* Explore Button */}
+
+                    <div className="mt-9">
+
+                        <Link
+                            to="/explore"
+                            className="inline-block bg-green-600 hover:bg-green-700 text-white px-9 py-4 rounded-full font-semibold text-lg transition duration-300 shadow-lg hover:shadow-green-500/30"
+                        >
+                            Explore Homestays →
+                        </Link>
+
+                    </div>
 
                 </div>
-              </div>
-            ))}
-                  </div>
 
-          {/* Register Prompt */}
-          <div className="text-center mt-16 bg-green-50 rounded-2xl p-10">
-            <h3 className="text-3xl font-bold mb-3">
-              Want to explore more?
-            </h3>
+            </section>
 
-            <p className="text-gray-600 text-lg mb-6">
-              Register with EcoStay AI to discover more destinations,
-              homestays, experiences, and hidden gems.
-            </p>
 
-            <Link
-              to="/register"
-              className="inline-block bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold text-lg transition duration-300"
-            >
-              Register to Explore More
-            </Link>
-          </div>
+            {/* ================= WHY ECOSTAY ================= */}
+
+            <section className="relative py-20 px-6 overflow-hidden">
+
+                {/* Pahadi meadow background */}
+                <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{
+                        backgroundImage:
+                            "url('/images/explore/pahadi_meadow_background.png')",
+                    }}
+                ></div>
+
+                {/* Soft overlay */}
+                <div className="absolute inset-0 bg-white/55"></div>
+
+                {/* Content */}
+                <div className="relative z-10 max-w-6xl mx-auto">
+
+                    {/* Heading */}
+
+                    <div className="text-center mb-12">
+
+                        <p className="text-green-600 font-semibold uppercase tracking-wider">
+                            Why EcoStay AI?
+                        </p>
+
+                        <h2 className="text-4xl md:text-5xl font-bold mt-3">
+                            Experience the Pahad, Not Just the Place
+                        </h2>
+
+                        <p className="text-gray-600 text-lg mt-4 max-w-2xl mx-auto">
+                            Discover local culture, beautiful places and
+                            authentic homestays across Uttarakhand.
+                        </p>
+
+                    </div>
+
+
+                    {/* Cards */}
+
+                    <div className="grid md:grid-cols-3 gap-8">
+
+                        {/* Card 1 */}
+
+                        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition duration-300">
+
+                            <div className="text-5xl mb-5">
+                                🏔️
+                            </div>
+
+                            <h3 className="text-2xl font-bold mb-3">
+                                Explore Uttarakhand
+                            </h3>
+
+                            <p className="text-gray-600 leading-7">
+                                Discover all 13 districts of Uttarakhand,
+                                their culture, landscapes and unique
+                                attractions.
+                            </p>
+
+                        </div>
+
+
+                        {/* Card 2 */}
+
+                        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition duration-300">
+
+                            <div className="text-5xl mb-5">
+                                🏡
+                            </div>
+
+                            <h3 className="text-2xl font-bold mb-3">
+                                Stay Like a Local
+                            </h3>
+
+                            <p className="text-gray-600 leading-7">
+                                Find welcoming local homestays and experience
+                                the warmth and hospitality of the Pahad.
+                            </p>
+
+                        </div>
+
+
+                        {/* Card 3 */}
+
+                        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition duration-300">
+
+                            <div className="text-5xl mb-5">
+                                🗺️
+                            </div>
+
+                            <h3 className="text-2xl font-bold mb-3">
+                                Plan Your Journey
+                            </h3>
+
+                            <p className="text-gray-600 leading-7">
+                                Use AI-powered travel planning to create
+                                personalized Uttarakhand experiences.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            {/* ================= PUBLIC EXPLORE CTA ================= */}
+
+            <section className="relative bg-green-800 text-white py-20 px-6 overflow-hidden">
+
+                <div className="absolute -top-24 -left-24 w-80 h-80 bg-green-500/20 rounded-full blur-3xl"></div>
+
+                <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-emerald-400/20 rounded-full blur-3xl"></div>
+
+                <div className="relative z-10 max-w-4xl mx-auto text-center">
+
+                    <div className="text-5xl mb-5">
+                        🌿
+                    </div>
+
+                    <h2 className="text-4xl md:text-5xl font-bold">
+                        Ready to Discover Uttarakhand?
+                    </h2>
+
+                    <p className="text-green-50 text-lg md:text-xl mt-5 leading-8">
+                        Take a glimpse of the mountains, valleys, culture and
+                        experiences waiting for you.
+                    </p>
+
+                    <Link
+                        to="/explore"
+                        className="inline-block mt-8 bg-white text-green-800 hover:bg-gray-100 px-9 py-4 rounded-full font-bold text-lg transition duration-300 shadow-lg"
+                    >
+                        Begin Your Journey →
+                    </Link>
+
+                </div>
+
+            </section>
+
+
+            <Footer />
 
         </div>
-      </section>
-      <Footer />
-    </div>
-  );
+    );
 }
 
 export default Home;

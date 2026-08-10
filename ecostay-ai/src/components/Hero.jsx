@@ -1,14 +1,17 @@
-function Hero({ onExplore }) {
+import { Link } from "react-router-dom";
+
+function Hero() {
     return (
         <section
             className="h-screen bg-cover bg-center relative"
             style={{
                 backgroundImage:
-                    "url('https://i.pinimg.com/736x/34/18/0b/34180bba4432016c9774c4a5adb0ffab.jpg')",
+                    "url('/images/pahadi-hero.png')",
             }}
         >
+
             {/* Dark Overlay */}
-            <div className="absolute inset-0 bg-black/40"></div>
+            <div className="absolute inset-0 bg-black/35"></div>
 
             {/* Content */}
             <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-6">
@@ -21,12 +24,12 @@ function Hero({ onExplore }) {
                     "Find your stay, plan your journey, and make it yours"
                 </p>
 
-                <button
-                    onClick={onExplore}
-                    className="bg-green-600 hover:bg-green-700 px-8 py-4 rounded-xl text-lg font-semibold transition duration-300 shadow-lg"
+                <Link
+                    to="/explore"
+                    className="bg-green-600 hover:bg-green-700 px-8 py-4 rounded-xl text-lg font-semibold transition duration-300 shadow-lg hover:shadow-green-500/30"
                 >
                     Explore Homestays
-                </button>
+                </Link>
 
             </div>
         </section>

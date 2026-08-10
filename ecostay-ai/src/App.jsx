@@ -7,53 +7,91 @@ import Login from "./pages/Login";
 import Showcase from "./pages/Showcase";
 import Register from "./pages/Register";
 import AIPlanner from "./pages/AIPlanner";
-import Destination from "./pages/Destination";
 import Statepage from "./pages/Statepage";
 import DistrictPage from "./pages/DistrictPage";
+import Explore from "./pages/Explore";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
+    return (
+        <BrowserRouter>
 
-        {/* Home */}
-        <Route path="/" element={<Home />} />
+            <Routes>
 
-        {/* Authentication */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/state/:stateId" element={<Statepage />} />
+                {/* ================= HOME ================= */}
 
-        {/* Other Pages */}
-        <Route path="/about" element={<About />} />
-        <Route path="/ai-planner" element={<AIPlanner />} />
-        <Route path="/showcase" element={<Showcase />} />
-        <Route
-    path="/district/:stateId/:districtId"
-    element={<DistrictPage />}
-/>
+                <Route
+                    path="/"
+                    element={<Home />}
+                />
 
-        {/* Protected Dashboard */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
+                {/* ================= AUTHENTICATION ================= */}
 
-        {/* Destination Pages */}
-        <Route
-          path="/destination/:city"
-          element={<Destination />}
-        />
+                <Route
+                    path="/login"
+                    element={<Login />}
+                />
 
-      </Routes>
-    </BrowserRouter>
-  );
+                <Route
+                    path="/register"
+                    element={<Register />}
+                />
+
+                {/* ================= PUBLIC EXPLORE ================= */}
+
+                <Route
+                    path="/explore"
+                    element={<Explore />}
+                />
+
+                {/* ================= STATE ================= */}
+
+                {/* Temporary - we will remove this later */}
+                <Route
+                    path="/state/:stateId"
+                    element={<Statepage />}
+                />
+
+                {/* ================= DISTRICT ================= */}
+
+                <Route
+                    path="/district/:stateId/:districtId"
+                    element={<DistrictPage />}
+                />
+
+                {/* ================= OTHER PAGES ================= */}
+
+                <Route
+                    path="/about"
+                    element={<About />}
+                />
+
+                <Route
+                    path="/ai-planner"
+                    element={<AIPlanner />}
+                />
+
+                <Route
+                    path="/showcase"
+                    element={<Showcase />}
+                />
+
+                {/* ================= PROTECTED DASHBOARD ================= */}
+
+                <Route
+                    path="/dashboard"
+                    element={
+                        <ProtectedRoute>
+                            <Dashboard />
+                        </ProtectedRoute>
+                    }
+                />
+
+            </Routes>
+
+        </BrowserRouter>
+    );
 }
 
 export default App;
