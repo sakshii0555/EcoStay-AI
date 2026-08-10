@@ -6,51 +6,52 @@ function About() {
         <>
             <Navbar />
 
-            <div className="bg-gray-950 text-white min-h-screen">
+            <div className="bg-[#f7f4ec] text-[#263528] min-h-screen">
 
                 {/* ================= HERO ================= */}
-                <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
 
-                    {/* Background Image */}
+                <section className="relative min-h-[75vh] flex items-center justify-center overflow-hidden">
+
+                    {/* Pahadi Hero Background */}
                     <img
-                        src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1800&q=85"
-                        alt="Mountain landscape"
+                        src="/images/about.png"
+                        alt="Pahadi village in Uttarakhand"
                         className="absolute inset-0 w-full h-full object-cover"
                     />
 
-                    {/* Dark Overlay */}
-                    <div className="absolute inset-0 bg-black/60"></div>
-
-                    {/* Glow */}
-                    <div className="absolute w-96 h-96 bg-green-500/20 blur-3xl rounded-full top-10 left-10"></div>
-                    <div className="absolute w-96 h-96 bg-emerald-400/10 blur-3xl rounded-full bottom-0 right-10"></div>
+                    {/* Dark overlay */}
+                    <div className="absolute inset-0 bg-black/50"></div>
 
                     {/* Hero Content */}
-                    <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+                    <div className="relative z-10 max-w-5xl mx-auto px-6 text-center text-white">
 
-                        <p className="text-green-400 uppercase tracking-[0.3em] text-sm font-semibold mb-5">
-                            Welcome to EcoStay AI
+                        <p className="text-[#f0a35b] uppercase tracking-[0.3em] text-sm font-semibold mb-5">
+                            About EcoStay AI
                         </p>
 
                         <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
-                            Travel Better.
+                            More Than Just
                             <br />
-                            <span className="text-green-400">
-                                Stay Local. Explore Deeper.
+                            <span className="text-[#f0a35b]">
+                                a Destination
                             </span>
                         </h1>
 
-                        <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
-                            EcoStay AI brings homestays, destination discovery,
-                            and intelligent travel planning together to help you
-                            experience India in a more personal and meaningful way.
+                        <div className="w-20 h-1 bg-[#f0a35b] mx-auto mb-7 rounded-full"></div>
+
+                        <p className="text-lg md:text-xl text-gray-100 max-w-3xl mx-auto leading-8">
+                            Discover Uttarakhand beyond the usual tourist trail —
+                            through its mountains, villages, culture, people,
+                            food and the warmth of a Pahadi home.
                         </p>
 
                     </div>
+
                 </section>
 
 
-                {/* ================= ABOUT ================= */}
+                {/* ================= OUR STORY ================= */}
+
                 <section className="max-w-6xl mx-auto px-6 py-24">
 
                     <div className="grid md:grid-cols-2 gap-14 items-center">
@@ -58,12 +59,12 @@ function About() {
                         {/* Image */}
                         <div className="relative">
 
-                            <div className="absolute -inset-3 bg-green-500/20 blur-2xl rounded-3xl"></div>
+                            <div className="absolute -inset-4 bg-[#b56b45]/20 blur-2xl rounded-3xl"></div>
 
                             <img
-                                src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1200&q=85"
-                                alt="Indian heritage"
-                                className="relative rounded-3xl shadow-2xl w-full h-[450px] object-cover"
+                                src="/images/explore/har-ki-doon.jpg"
+                                alt="Har Ki Dun valley in Uttarakhand"
+                                className="relative rounded-3xl shadow-xl w-full h-[450px] object-cover"
                             />
 
                         </div>
@@ -72,38 +73,39 @@ function About() {
                         {/* Text */}
                         <div>
 
-                            <p className="text-green-400 uppercase tracking-widest text-sm font-semibold mb-4">
-                                What is EcoStay AI?
+                            <p className="text-[#b56b45] uppercase tracking-[0.25em] text-sm font-semibold mb-4">
+                                Our Story
                             </p>
 
-                            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                                Your journey,
-                                <span className="text-green-400">
-                                    {" "}your way.
+                            <h2 className="text-4xl md:text-5xl font-bold text-[#263528] leading-tight mb-6">
+                                Built for the
+                                <span className="text-[#b56b45]">
+                                    {" "}Pahad.
                                 </span>
                             </h2>
 
-                            <div className="space-y-5 text-gray-300 text-lg leading-8">
+                            <div className="space-y-5 text-gray-700 text-lg leading-8">
 
                                 <p>
-                                    EcoStay AI is an AI-powered travel and
-                                    homestay platform designed to make exploring
-                                    India more personal, convenient, and meaningful.
+                                    EcoStay AI was created with a simple idea —
+                                    travelling through Uttarakhand should be
+                                    about more than checking famous places off
+                                    a list.
                                 </p>
 
                                 <p>
-                                    Instead of spending hours searching across
-                                    different websites, travellers can discover
-                                    destinations, find comfortable homestays,
-                                    explore places worth visiting, and create
-                                    personalised travel plans in one place.
+                                    The real beauty of the Pahad lies in its
+                                    quiet villages, winding mountain roads,
+                                    local food, traditional homes, peaceful
+                                    landscapes and the people who call these
+                                    mountains home.
                                 </p>
 
                                 <p>
-                                    Whether you want to explore Himalayan villages,
-                                    historic cities, peaceful beaches, or cultural
-                                    destinations, EcoStay AI helps you discover
-                                    more than just the usual tourist checklist.
+                                    EcoStay AI brings these experiences
+                                    together so travellers can discover
+                                    Uttarakhand in a more personal,
+                                    meaningful and responsible way.
                                 </p>
 
                             </div>
@@ -111,104 +113,220 @@ function About() {
                         </div>
 
                     </div>
+
                 </section>
 
 
-                {/* ================= FEATURES ================= */}
-                <section className="relative py-24 bg-gray-900 overflow-hidden">
+                {/* ================= WHAT WE BELIEVE ================= */}
 
-                    {/* Background Glow */}
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-green-500/10 blur-3xl rounded-full"></div>
+                <section className="relative py-24 overflow-hidden">
 
-                    <div className="relative max-w-6xl mx-auto px-6">
+                    {/* Pahadi Pattern Background */}
+                    <div
+                        className="absolute inset-0 bg-cover bg-center"
+                        style={{
+                           backgroundImage:
+    "url('/images/mtt.jpg')",
+                        }}
+                    ></div>
 
-                        <div className="text-center mb-16">
+                    {/* Soft overlay */}
+                    <div className="absolute inset-0 bg-black/25"></div>
 
-                            <p className="text-green-400 uppercase tracking-widest text-sm font-semibold mb-3">
-                                Why EcoStay AI?
+                    {/* Content */}
+                    <div className="relative z-10 max-w-6xl mx-auto px-6">
+
+                        <div className="text-center mb-14">
+
+                            <p className="text-[#b56b45] uppercase tracking-[0.25em] text-sm font-semibold mb-3">
+                                The EcoStay Philosophy
                             </p>
 
-                            <h2 className="text-4xl md:text-5xl font-bold">
-                                Everything you need for your next journey.
+                            <h2 className="text-4xl md:text-5xl font-bold text-[#263528]">
+                                Experience the Pahad
                             </h2>
 
-                            <p className="text-gray-400 mt-5 text-lg max-w-2xl mx-auto">
-                                From finding a place to stay to planning what
-                                to do next, EcoStay AI brings the entire travel
-                                experience together.
+                            <p className="text-gray-700 text-lg mt-5 max-w-2xl mx-auto leading-8">
+                                Because the best way to know Uttarakhand is
+                                to experience it like a local.
                             </p>
 
                         </div>
 
 
                         {/* Cards */}
-                        <div className="grid md:grid-cols-3 gap-8">
 
-                            {/* Card 1 */}
-                            <div className="group relative p-[1px] rounded-3xl bg-gradient-to-br from-green-400/60 via-transparent to-green-400/10">
+                        <div className="grid md:grid-cols-3 gap-7">
 
-                                <div className="h-full bg-gray-950 rounded-3xl p-8 transition duration-500 group-hover:-translate-y-2 group-hover:shadow-[0_0_40px_rgba(34,197,94,0.20)]">
+                            {/* Discover */}
+                            <div className="bg-[#fffdf8]/95 backdrop-blur-sm rounded-3xl p-9 text-center shadow-lg border border-white/70 hover:-translate-y-2 transition duration-300">
 
-                                    <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-green-500/10 text-4xl mb-7">
+                                <div className="text-5xl mb-6">
+                                    🏔️
+                                </div>
+
+                                <h3 className="text-2xl font-bold text-[#263528] mb-4">
+                                    Discover
+                                </h3>
+
+                                <p className="text-gray-600 leading-7">
+                                    Explore hidden valleys, mountain villages,
+                                    peaceful lakes and places beyond the
+                                    usual tourist trail.
+                                </p>
+
+                            </div>
+
+
+                            {/* Experience */}
+                            <div className="bg-[#fffdf8]/95 backdrop-blur-sm rounded-3xl p-9 text-center shadow-lg border border-white/70 hover:-translate-y-2 transition duration-300">
+
+                                <div className="text-5xl mb-6">
+                                    🪕
+                                </div>
+
+                                <h3 className="text-2xl font-bold text-[#263528] mb-4">
+                                    Experience
+                                </h3>
+
+                                <p className="text-gray-600 leading-7">
+                                    Experience Pahadi food, traditions,
+                                    festivals, stories and the everyday
+                                    rhythm of mountain life.
+                                </p>
+
+                            </div>
+
+
+                            {/* Stay Local */}
+                            <div className="bg-[#fffdf8]/95 backdrop-blur-sm rounded-3xl p-9 text-center shadow-lg border border-white/70 hover:-translate-y-2 transition duration-300">
+
+                                <div className="text-5xl mb-6">
+                                    🏡
+                                </div>
+
+                                <h3 className="text-2xl font-bold text-[#263528] mb-4">
+                                    Stay Local
+                                </h3>
+
+                                <p className="text-gray-600 leading-7">
+                                    Stay with local hosts and experience the
+                                    warmth, stories and hospitality of a
+                                    Pahadi home.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                {/* ================= 13 DISTRICTS ================= */}
+
+                <section className="bg-[#263528] text-white py-24 px-6">
+
+                    <div className="max-w-6xl mx-auto">
+
+                        <div className="grid md:grid-cols-2 gap-14 items-center">
+
+                            <div>
+
+                                <p className="text-[#f0a35b] uppercase tracking-[0.25em] text-sm font-semibold mb-4">
+                                    One State. Many Stories.
+                                </p>
+
+                                <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
+                                    Explore All Sides of
+                                    <span className="text-[#f0a35b]">
+                                        {" "}Uttarakhand
+                                    </span>
+                                </h2>
+
+                                <p className="text-gray-200 text-lg leading-8 mb-5">
+                                    From the Garhwal Himalayas to Kumaon,
+                                    every corner of Uttarakhand has its own
+                                    landscapes, traditions, food and stories.
+                                </p>
+
+                                <p className="text-gray-300 text-lg leading-8">
+                                    EcoStay AI is built around discovering
+                                    all 13 districts — not just the places
+                                    that appear on every tourist itinerary.
+                                </p>
+
+                            </div>
+
+
+                            {/* District highlights */}
+
+                            <div className="grid grid-cols-2 gap-4">
+
+                                <div className="bg-white/10 border border-white/10 rounded-2xl p-6 text-center">
+
+                                    <div className="text-4xl mb-2">
+                                        🏔️
+                                    </div>
+
+                                    <p className="font-semibold text-lg">
+                                        Garhwal
+                                    </p>
+
+                                    <p className="text-gray-400 text-sm mt-1">
+                                        Mountains & Temples
+                                    </p>
+
+                                </div>
+
+
+                                <div className="bg-white/10 border border-white/10 rounded-2xl p-6 text-center">
+
+                                    <div className="text-4xl mb-2">
+                                        🌲
+                                    </div>
+
+                                    <p className="font-semibold text-lg">
+                                        Kumaon
+                                    </p>
+
+                                    <p className="text-gray-400 text-sm mt-1">
+                                        Lakes & Valleys
+                                    </p>
+
+                                </div>
+
+
+                                <div className="bg-white/10 border border-white/10 rounded-2xl p-6 text-center">
+
+                                    <div className="text-4xl mb-2">
                                         🏡
                                     </div>
 
-                                    <h3 className="text-2xl font-bold mb-4">
-                                        Stay Local
-                                    </h3>
+                                    <p className="font-semibold text-lg">
+                                        Villages
+                                    </p>
 
-                                    <p className="text-gray-400 leading-7">
-                                        Discover comfortable homestays that
-                                        bring you closer to local communities,
-                                        culture, and everyday life.
+                                    <p className="text-gray-400 text-sm mt-1">
+                                        Local Life
                                     </p>
 
                                 </div>
 
-                            </div>
 
+                                <div className="bg-white/10 border border-white/10 rounded-2xl p-6 text-center">
 
-                            {/* Card 2 */}
-                            <div className="group relative p-[1px] rounded-3xl bg-gradient-to-br from-green-400/60 via-transparent to-green-400/10">
-
-                                <div className="h-full bg-gray-950 rounded-3xl p-8 transition duration-500 group-hover:-translate-y-2 group-hover:shadow-[0_0_40px_rgba(34,197,94,0.20)]">
-
-                                    <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-green-500/10 text-4xl mb-7">
-                                        🤖
+                                    <div className="text-4xl mb-2">
+                                        🪕
                                     </div>
 
-                                    <h3 className="text-2xl font-bold mb-4">
-                                        Plan with AI
-                                    </h3>
-
-                                    <p className="text-gray-400 leading-7">
-                                        Tell our AI where you are going, your
-                                        budget, trip duration, and travel style
-                                        and get a personalised itinerary.
+                                    <p className="font-semibold text-lg">
+                                        Culture
                                     </p>
 
-                                </div>
-
-                            </div>
-
-
-                            {/* Card 3 */}
-                            <div className="group relative p-[1px] rounded-3xl bg-gradient-to-br from-green-400/60 via-transparent to-green-400/10">
-
-                                <div className="h-full bg-gray-950 rounded-3xl p-8 transition duration-500 group-hover:-translate-y-2 group-hover:shadow-[0_0_40px_rgba(34,197,94,0.20)]">
-
-                                    <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-green-500/10 text-4xl mb-7">
-                                        🌍
-                                    </div>
-
-                                    <h3 className="text-2xl font-bold mb-4">
-                                        Explore Deeper
-                                    </h3>
-
-                                    <p className="text-gray-400 leading-7">
-                                        Go beyond famous attractions and
-                                        discover food, heritage, nature,
-                                        culture, and hidden experiences.
+                                    <p className="text-gray-400 text-sm mt-1">
+                                        Stories & Traditions
                                     </p>
 
                                 </div>
@@ -218,37 +336,44 @@ function About() {
                         </div>
 
                     </div>
+
                 </section>
 
 
                 {/* ================= EXPERIENCE ================= */}
+
                 <section className="max-w-6xl mx-auto px-6 py-24">
 
-                    <div className="relative rounded-3xl overflow-hidden min-h-[420px] flex items-center">
+                    <div className="relative rounded-3xl overflow-hidden min-h-[460px] flex items-center">
 
                         <img
-                            src="https://images.unsplash.com/photo-1528543606781-2f6e6857f318?auto=format&fit=crop&w=1600&q=85"
-                            alt="Mountain travel"
-                            className="absolute inset-0 w-full h-full object-cover"
-                        />
+    src="/images/pahadi_pattern_stream_temple.png"
+    alt="Pahadi stream and temple in Uttarakhand"
+    className="absolute inset-0 w-full h-full object-cover"
+/>
 
-                        <div className="absolute inset-0 bg-black/65"></div>
+                        <div className="absolute inset-0 bg-black/60"></div>
 
-                        <div className="relative z-10 p-10 md:p-16 max-w-3xl">
+                        <div className="relative z-10 p-10 md:p-16 max-w-3xl text-white">
 
-                            <p className="text-green-400 uppercase tracking-widest text-sm font-semibold mb-4">
-                                More than a destination
+                            <p className="text-[#f0a35b] uppercase tracking-[0.25em] text-sm font-semibold mb-4">
+                                More Than a Destination
                             </p>
 
-                            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                                The best journeys are the ones you remember.
+                            <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                                Come for the mountains.
+                                <br />
+                                Stay for the
+                                <span className="text-[#f0a35b]">
+                                    {" "}feeling.
+                                </span>
                             </h2>
 
-                            <p className="text-gray-200 text-lg leading-8">
-                                Discover the character of every destination —
+                            <p className="text-gray-100 text-lg leading-8">
+                                Discover the character of Uttarakhand —
                                 the people, food, landscapes, traditions and
-                                stories that make a place worth visiting.
-                                EcoStay AI helps you find them.
+                                stories that make the Pahad feel like more
+                                than just a place on a map.
                             </p>
 
                         </div>
@@ -259,32 +384,55 @@ function About() {
 
 
                 {/* ================= CTA ================= */}
-                <section className="text-center px-6 pb-24">
 
-                    <div className="max-w-4xl mx-auto">
+<section className="px-6 pb-24">
 
-                        <div className="relative p-10 md:p-14 rounded-3xl border border-green-500/20 bg-green-500/5 shadow-[0_0_60px_rgba(34,197,94,0.08)]">
+    <div className="relative max-w-5xl mx-auto rounded-3xl overflow-hidden">
 
-                            <h2 className="text-4xl md:text-5xl font-bold mb-5">
-                                Your next adventure is waiting.
-                            </h2>
+        {/* Pahadi Pattern Background */}
+        <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+                backgroundImage:
+                    "url('/images/pahadi_background_4th.png')",
+            }}
+        ></div>
 
-                            <p className="text-gray-400 text-lg mb-8">
-                                Find your stay, plan your journey, and make it yours.
-                            </p>
+        {/* Dark Green Overlay */}
+        <div className="absolute inset-0 bg-[#263528]/55"></div>
 
-                            <a
-                                href="/"
-                                className="inline-block bg-green-600 hover:bg-green-500 px-8 py-4 rounded-xl font-semibold text-lg transition duration-300 shadow-lg shadow-green-500/20"
-                            >
-                                Start Exploring
-                            </a>
+        {/* CTA Content */}
+        <div className="relative z-10 text-center text-white px-6 py-16 md:py-20">
 
-                        </div>
+            <p className="text-[#f0a35b] uppercase tracking-[0.25em] text-sm font-semibold mb-4">
+                Your Pahadi Journey Awaits
+            </p>
 
-                    </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-5">
+                Find Your Way to the
+                <span className="text-[#f0a35b]">
+                    {" "}पहाड़
+                </span>
+            </h2>
 
-                </section>
+            <p className="text-gray-200 text-lg md:text-xl max-w-2xl mx-auto leading-8 mb-8">
+                Find your stay, discover hidden places,
+                plan your journey and experience Uttarakhand
+                your way.
+            </p>
+
+            <a
+                href="/explore"
+                className="inline-block bg-[#f0a35b] hover:bg-[#d98b45] text-[#263528] px-9 py-4 rounded-full font-bold text-lg transition duration-300 shadow-lg"
+            >
+                Start Exploring →
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
 
             </div>
 
