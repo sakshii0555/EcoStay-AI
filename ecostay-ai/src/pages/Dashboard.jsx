@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import StateCard from "../components/StateCard";
-import states from "../data/states";
+import DistrictCard from "../components/DistrictCard";
+import uttarakhandDistricts from "../data/districts/uttarakhand";
 
 function Dashboard() {
     const [homestays, setHomestays] = useState([]);
@@ -256,11 +256,12 @@ function Dashboard() {
     if (!isAdmin) {
         return (
             <div className="bg-gray-50 min-h-screen">
+
                 <Navbar />
 
                 <main className="max-w-6xl mx-auto pt-32 px-6 pb-16">
 
-                    {/* HEADER */}
+                    {/* ================= HEADER ================= */}
 
                     <div className="text-center mb-12">
 
@@ -269,25 +270,26 @@ function Dashboard() {
                         </p>
 
                         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mt-3">
-                            Explore Destinations 🌿
+                            Explore Uttarakhand 🌿
                         </h1>
 
                         <p className="text-gray-600 text-lg mt-4 max-w-2xl mx-auto">
-                            Discover beautiful states, cities, local
-                            attractions, restaurants and eco-friendly
-                            homestays across India.
+                            Discover the 13 districts of Uttarakhand —
+                            from peaceful mountain villages and sacred towns
+                            to forests, valleys and local Pahadi experiences.
                         </p>
 
                     </div>
 
-                    {/* STATE CARDS */}
+
+                    {/* ================= DISTRICT CARDS ================= */}
 
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                        {states.map((state) => (
-                            <StateCard
-                                key={state.id}
-                                state={state}
+                        {uttarakhandDistricts.map((district) => (
+                            <DistrictCard
+                                key={district.id}
+                                district={district}
                             />
                         ))}
 
@@ -296,6 +298,7 @@ function Dashboard() {
                 </main>
 
                 <Footer />
+
             </div>
         );
     }
@@ -330,6 +333,7 @@ function Dashboard() {
 
                     </div>
 
+
                     {/* ADD BUTTON */}
 
                     <button
@@ -354,9 +358,11 @@ function Dashboard() {
 
                 </div>
 
+
                 {/* ================= HOMESTAY CARDS ================= */}
 
                 {homestays.length === 0 ? (
+
                     <div className="text-center py-16">
 
                         <p className="text-gray-500 text-lg">
@@ -364,10 +370,13 @@ function Dashboard() {
                         </p>
 
                     </div>
+
                 ) : (
+
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                         {homestays.map((homestay) => (
+
                             <div
                                 key={homestay._id}
                                 className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition"
@@ -424,16 +433,20 @@ function Dashboard() {
                                 </div>
 
                             </div>
+
                         ))}
 
                     </div>
+
                 )}
 
             </div>
 
+
             {/* ================= ADD / EDIT MODAL ================= */}
 
             {showModal && (
+
                 <div className="fixed inset-0 z-[9999] bg-black/60 flex items-center justify-center px-4">
 
                     <div className="bg-white rounded-xl p-8 w-full max-w-[420px] shadow-2xl">
@@ -443,6 +456,7 @@ function Dashboard() {
                                 ? "Edit Homestay"
                                 : "Add Homestay"}
                         </h2>
+
 
                         <input
                             type="text"
@@ -510,6 +524,7 @@ function Dashboard() {
                             className="w-full border rounded-lg p-3 mb-6"
                         />
 
+
                         <div className="flex justify-end gap-3">
 
                             <button
@@ -535,6 +550,7 @@ function Dashboard() {
                     </div>
 
                 </div>
+
             )}
 
             <Footer />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Chatbot from "../components/Chatbot";
@@ -9,107 +9,396 @@ function AIPlanner() {
     const [budget, setBudget] = useState("");
     const [travelStyle, setTravelStyle] = useState("");
 
-    const [step, setStep] = useState(1);
+    const [messages, setMessages] = useState([
+        {
+            id: 1,
+            sender: "bot",
+            text: "Namaste! 👋 I'm your Pahadi Buddy. Where are we heading in Uttarakhand?",
+        },
+    ]);
+
+    const [currentStep, setCurrentStep] = useState("destination");
+    const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState("");
     const [error, setError] = useState("");
 
-    // Uses localhost while developing,
-    // and can use the Render backend after deployment.
+    const messagesEndRef = useRef(null);
+
     const API_URL =
         import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-    const handleNext = () => {
+    /* ================= MASCOT ANIMATIONS ================= */
+
+    const mascotStyles = `
+        @keyframes buddyFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            25% {
+                transform: translateY(-5px) rotate(-1deg);
+            }
+
+            50% {
+                transform: translateY(-12px) rotate(1deg);
+            }
+
+            75% {
+                transform: translateY(-5px) rotate(-1deg);
+            }
+        }
+
+        @keyframes buddyThink {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            25% {
+                transform: translateY(-5px) rotate(-3deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(3deg);
+            }
+
+            75% {
+                transform: translateY(-5px) rotate(-2deg);
+            }
+        }
+
+        @keyframes buddyCelebrate {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            20% {
+                transform: translateY(-12px) rotate(-5deg);
+            }
+
+            40% {
+                transform: translateY(0px) rotate(5deg);
+            }
+
+            60% {
+                transform: translateY(-12px) rotate(-5deg);
+            }
+
+            80% {
+                transform: translateY(0px) rotate(5deg);
+            }
+        }
+
+        @keyframes bubbleFloat {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes shadowPulse {
+            0%, 100% {
+                transform: scaleX(1);
+                opacity: 0.25;
+            }
+
+            50% {
+                transform: scaleX(0.75);
+                opacity: 0.12;
+            }
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                transform: translateY(0px) scale(1);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: translateY(-8px) scale(1.15);
+                opacity: 1;
+            }
+        }
+    `;
+
+    /* ================= AUTO SCROLL ================= */
+
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({
+            behavior: "smooth",
+        });
+    }, [messages, loading, result]);
+
+    /* ================= ADD MESSAGE ================= */
+
+    const addMessage = (sender, text) => {
+        setMessages((prev) => [
+            ...prev,
+            {
+                id: Date.now() + Math.random(),
+                sender,
+                text,
+            },
+        ]);
+    };
+
+    /* ================= HANDLE USER ANSWER ================= */
+
+    const handleAnswer = (value = input) => {
+        const answer = value.trim();
+
+        if (!answer) return;
+
         setError("");
 
-        if (step === 1 && !destination.trim()) {
-            setError("Tell me where you would like to go 😊");
+        /* Destination */
+
+        if (currentStep === "destination") {
+            setDestination(answer);
+
+            addMessage("user", answer);
+
+            setInput("");
+
+            setTimeout(() => {
+                setCurrentStep("days");
+
+                addMessage(
+                    "bot",
+                    `Wah! 🌿 ${answer} sounds wonderful. How many days are we planning for?`
+                );
+            }, 350);
+
             return;
         }
 
-        if (step === 2 && !days) {
-            setError("How many days are you planning for? 🏔️");
+        /* Days */
+
+        if (currentStep === "days") {
+            setDays(answer);
+
+            addMessage("user", `${answer} days`);
+
+            setInput("");
+
+            setTimeout(() => {
+                setCurrentStep("budget");
+
+                addMessage(
+                    "bot",
+                    "Badhiya! 🏔️ Now tell me your approximate budget for the trip."
+                );
+            }, 350);
+
             return;
         }
 
-        if (step === 3 && !budget) {
-            setError("Tell me your approximate budget 💰");
+        /* Budget */
+
+        if (currentStep === "budget") {
+            setBudget(answer);
+
+            addMessage(
+                "user",
+                `₹${Number(answer).toLocaleString("en-IN")}`
+            );
+
+            setInput("");
+
+            setTimeout(() => {
+                setCurrentStep("style");
+
+                addMessage(
+                    "bot",
+                    "Almost there! 😊 What kind of Pahadi experience are you looking for?"
+                );
+            }, 350);
+
             return;
         }
 
-        if (step === 4 && !travelStyle) {
-            setError("Choose the kind of experience you want 🌿");
-            return;
-        }
+        /* Travel Style */
 
-        if (step < 4) {
-            setStep(step + 1);
-        } else {
-            handleGenerate();
+        if (currentStep === "style") {
+            setTravelStyle(answer);
+
+            addMessage("user", answer);
+
+            setInput("");
+
+            setTimeout(() => {
+                addMessage(
+                    "bot",
+                    "Bas! 🏔️ I've got everything I need. Let me create your Pahadi journey..."
+                );
+
+                generateJourney(
+                    destination,
+                    days,
+                    budget,
+                    answer
+                );
+            }, 400);
         }
     };
 
-    const handleBack = () => {
-        if (step > 1) {
-            setError("");
-            setStep(step - 1);
-        }
-    };
+    /* ================= GENERATE JOURNEY ================= */
 
-    const handleGenerate = async () => {
+    const generateJourney = async (
+        finalDestination = destination,
+        finalDays = days,
+        finalBudget = budget,
+        finalTravelStyle = travelStyle
+    ) => {
         setLoading(true);
-        setResult("");
         setError("");
 
         try {
             const response = await fetch(`${API_URL}/api/ai/plan`, {
                 method: "POST",
+
                 headers: {
                     "Content-Type": "application/json",
                 },
+
                 body: JSON.stringify({
-                    destination,
-                    days,
-                    budget,
-                    travelStyle,
+                    destination: finalDestination,
+                    days: finalDays,
+                    budget: finalBudget,
+                    travelStyle: finalTravelStyle,
                 }),
             });
 
             const data = await response.json();
 
             if (data.success) {
+                /*
+                 * Save the generated itinerary.
+                 * This will now actually be displayed below.
+                 */
                 setResult(data.itinerary);
-                setStep(5);
+
+                setTimeout(() => {
+                    addMessage(
+                        "bot",
+                        "Your Pahadi journey is ready! ✨🏔️ I've planned it specially for you."
+                    );
+                }, 300);
             } else {
-                setError(data.message || "Something went wrong.");
+                setError(
+                    data.message ||
+                        "I couldn't create your journey. Please try again."
+                );
             }
         } catch (error) {
             console.error("Fetch error:", error);
-            setError("I couldn't reach the travel planner. Please try again.");
+
+            setError(
+                "I couldn't reach the travel planner right now. Please try again."
+            );
         } finally {
             setLoading(false);
         }
     };
+
+    /* ================= QUICK OPTIONS ================= */
+
+    const destinationOptions = [
+        "Mussoorie",
+        "Nainital",
+        "Rishikesh",
+        "Auli",
+        "Chopta",
+    ];
+
+    const daysOptions = [
+        "2",
+        "3",
+        "4",
+        "5",
+        "7",
+    ];
+
+    const budgetOptions = [
+        "5000",
+        "10000",
+        "20000",
+        "30000",
+    ];
+
+    const styleOptions = [
+        {
+            name: "Nature",
+            icon: "🌿",
+        },
+        {
+            name: "Adventure",
+            icon: "🏔️",
+        },
+        {
+            name: "Local Life",
+            icon: "🏡",
+        },
+        {
+            name: "Culture",
+            icon: "🛕",
+        },
+        {
+            name: "Food",
+            icon: "🍲",
+        },
+        {
+            name: "Relaxed",
+            icon: "☕",
+        },
+    ];
+
+    /* ================= RESET ================= */
 
     const resetPlanner = () => {
         setDestination("");
         setDays("");
         setBudget("");
         setTravelStyle("");
+        setInput("");
         setResult("");
         setError("");
-        setStep(1);
+        setLoading(false);
+        setCurrentStep("destination");
+
+        setMessages([
+            {
+                id: Date.now(),
+                sender: "bot",
+                text: "Namaste! 👋 I'm your Pahadi Buddy. Where are we heading in Uttarakhand?",
+            },
+        ]);
+    };
+
+    /* ================= ENTER KEY ================= */
+
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            handleAnswer();
+        }
     };
 
     return (
         <>
+            <style>{mascotStyles}</style>
+
             <Navbar />
 
-            {/* ================= AI PLANNER ================= */}
+            {/* ================= AI PLANNER PAGE ================= */}
 
             <div className="relative min-h-screen overflow-hidden pt-28 pb-20">
 
-                {/* Background */}
+                {/* ================= BACKGROUND ================= */}
+
                 <div
                     className="absolute inset-0 bg-cover bg-center"
                     style={{
@@ -118,20 +407,22 @@ function AIPlanner() {
                     }}
                 ></div>
 
-                {/* Dark Pahadi-style overlay */}
+                {/* Dark overlay */}
+
                 <div className="absolute inset-0 bg-[#17251b]/75"></div>
 
-                {/* Warm glow */}
+                {/* Green glow */}
+
                 <div className="absolute top-20 left-10 w-80 h-80 bg-[#f0a35b]/15 rounded-full blur-3xl"></div>
 
                 <div className="absolute bottom-10 right-10 w-96 h-96 bg-green-500/15 rounded-full blur-3xl"></div>
 
 
-                {/* ================= MAIN CONTENT ================= */}
+                {/* ================= MAIN ================= */}
 
-                <div className="relative z-10 max-w-5xl mx-auto px-6">
+                <div className="relative z-10 max-w-6xl mx-auto px-6">
 
-                    {/* Page heading */}
+                    {/* ================= HEADER ================= */}
 
                     <div className="text-center text-white mb-10">
 
@@ -144,8 +435,8 @@ function AIPlanner() {
                         </h1>
 
                         <p className="text-gray-200 text-lg mt-4">
-                            Tell me what you're looking for and I'll help
-                            you discover Uttarakhand your way.
+                            Tell me what you're looking for and let's
+                            discover Uttarakhand together.
                         </p>
 
                     </div>
@@ -158,19 +449,99 @@ function AIPlanner() {
                         <div className="grid md:grid-cols-[280px_1fr]">
 
 
-                            {/* ================= MASCOT ================= */}
+                            {/* ================================================= */}
+                            {/* ================= MASCOT PANEL ================= */}
+                            {/* ================================================= */}
 
-                            <div className="bg-[#263528] flex flex-col items-center justify-center p-8 text-center">
+                            <div className="bg-[#263528] flex flex-col items-center justify-center p-8 text-center relative overflow-hidden">
 
-                                <div className="w-48 h-48 md:w-56 md:h-56 flex items-end justify-center">
+                                {/* Decorative sparkles */}
 
-                                    <img
-                                        src="/images/pahadi-buddy.png"
-                                        alt="Pahadi Buddy - EcoStay AI travel assistant"
-                                        className="max-w-full max-h-full object-contain drop-shadow-2xl"
-                                    />
+                                <div
+                                    className="absolute top-12 left-10 text-[#f0a35b] text-xl"
+                                    style={{
+                                        animation:
+                                            "sparkle 2.5s ease-in-out infinite",
+                                    }}
+                                >
+                                    ✦
+                                </div>
+
+                                <div
+                                    className="absolute top-24 right-10 text-green-300 text-lg"
+                                    style={{
+                                        animation:
+                                            "sparkle 2s ease-in-out infinite",
+                                        animationDelay: "0.7s",
+                                    }}
+                                >
+                                    ✦
+                                </div>
+
+
+                                {/* Mascot area */}
+
+                                <div className="relative w-56 h-72 flex items-end justify-center">
+
+                                    {/* Speech bubble */}
+
+                                    <div
+                                        className="absolute -top-2 right-0 z-20 bg-white text-[#263528] px-4 py-2 rounded-2xl shadow-lg text-sm font-semibold"
+                                        style={{
+                                            animation:
+                                                "bubbleFloat 3s ease-in-out infinite",
+                                        }}
+                                    >
+
+                                        {loading
+                                            ? "Thinking... 🤔"
+                                            : result
+                                            ? "We did it! 🎉"
+                                            : "Namaste! 👋"}
+
+                                        {/* Bubble tail */}
+
+                                        <div className="absolute bottom-[-6px] left-6 w-3 h-3 bg-white rotate-45"></div>
+
+                                    </div>
+
+
+                                    {/* Mascot */}
+
+                                    <div
+                                        className="relative z-10"
+                                        style={{
+                                            animation: loading
+                                                ? "buddyThink 1.5s ease-in-out infinite"
+                                                : result
+                                                ? "buddyCelebrate 1.2s ease-in-out infinite"
+                                                : "buddyFloat 3s ease-in-out infinite",
+                                        }}
+                                    >
+
+                                        <img
+                                            src="/images/pahadi-buddy.png"
+                                            alt="Pahadi Buddy - EcoStay AI travel assistant"
+                                            className="w-52 h-64 object-contain drop-shadow-[0_18px_20px_rgba(0,0,0,0.4)]"
+                                        />
+
+                                    </div>
+
+
+                                    {/* Animated ground shadow */}
+
+                                    <div
+                                        className="absolute bottom-1 left-1/2 -translate-x-1/2 w-36 h-6 bg-black/40 rounded-full blur-md"
+                                        style={{
+                                            animation:
+                                                "shadowPulse 3s ease-in-out infinite",
+                                        }}
+                                    ></div>
 
                                 </div>
+
+
+                                {/* Mascot name */}
 
                                 <h2 className="text-white text-2xl font-bold mt-4">
                                     Pahadi Buddy
@@ -180,381 +551,511 @@ function AIPlanner() {
                                     Your little guide to the Pahad 🌿
                                 </p>
 
-                                {/* Progress */}
 
-                                {step < 5 && (
-                                    <div className="w-full mt-7">
+                                {/* Status */}
 
-                                        <div className="flex justify-between text-xs text-green-100 mb-2">
-                                            <span>Journey Progress</span>
-                                            <span>{step}/4</span>
+                                <div className="mt-5">
+
+                                    {loading ? (
+
+                                        <div className="text-[#f0a35b] text-sm font-semibold animate-pulse">
+                                            Planning your journey... 🏔️
                                         </div>
 
-                                        <div className="w-full h-2 bg-white/20 rounded-full overflow-hidden">
+                                    ) : result ? (
 
-                                            <div
-                                                className="h-full bg-[#f0a35b] rounded-full transition-all duration-500"
-                                                style={{
-                                                    width: `${step * 25}%`,
-                                                }}
-                                            ></div>
-
+                                        <div className="text-green-300 text-sm font-semibold">
+                                            Journey ready! ✨
                                         </div>
 
-                                    </div>
-                                )}
+                                    ) : (
+
+                                        <div className="text-green-200/70 text-xs">
+                                            Online • Ready to help
+                                        </div>
+
+                                    )}
+
+                                </div>
 
                             </div>
 
 
-                            {/* ================= CHAT AREA ================= */}
+                            {/* ================================================= */}
+                            {/* ================= CHAT PANEL ==================== */}
+                            {/* ================================================= */}
 
-                            <div className="p-7 md:p-10">
+                            <div className="flex flex-col min-h-[650px]">
 
 
-                                {/* ================= RESULT ================= */}
+                                {/* CHAT HEADER */}
 
-                                {step === 5 ? (
+                                <div className="px-6 py-5 border-b border-[#e5d7c3] bg-[#fffdf8]">
 
-                                    <div>
+                                    <div className="flex items-center gap-3">
 
-                                        <div className="flex items-center gap-4 mb-7">
-
-                                            <div className="w-14 h-14 rounded-full bg-[#263528] flex items-center justify-center text-3xl">
-                                                🧒
-                                            </div>
-
-                                            <div>
-                                                <p className="text-[#b56b45] uppercase tracking-wider text-sm font-semibold">
-                                                    Pahadi Buddy says
-                                                </p>
-
-                                                <h2 className="text-2xl md:text-3xl font-bold text-[#263528]">
-                                                    Your Pahadi Journey is Ready!
-                                                </h2>
-                                            </div>
-
+                                        <div className="w-10 h-10 rounded-full bg-[#263528] flex items-center justify-center text-xl">
+                                            🧒
                                         </div>
 
+                                        <div>
 
-                                        <div className="bg-[#f7f1e7] border border-[#e5d7c3] rounded-2xl p-6 md:p-8">
+                                            <h2 className="font-bold text-[#263528]">
+                                                Pahadi Buddy
+                                            </h2>
 
-                                            <div className="text-gray-700 leading-8 whitespace-pre-wrap">
-                                                {result}
-                                            </div>
+                                            <p className="text-xs text-green-600">
+                                                ● Your Uttarakhand travel helper
+                                            </p>
 
                                         </div>
-
-
-                                        <button
-                                            onClick={resetPlanner}
-                                            className="mt-7 bg-[#263528] hover:bg-[#1d291f] text-white px-7 py-3 rounded-full font-semibold transition duration-300"
-                                        >
-                                            Plan Another Journey ↻
-                                        </button>
 
                                     </div>
 
-                                ) : (
+                                </div>
 
-                                    <>
 
-                                        {/* ================= CHAT MESSAGE ================= */}
+                                {/* ================================================= */}
+                                {/* ================= MESSAGES ====================== */}
+                                {/* ================================================= */}
 
-                                        <div className="flex items-start gap-4 mb-8">
+                                <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-5 max-h-[600px]">
 
-                                            <div className="w-12 h-12 flex-shrink-0 rounded-full bg-[#263528] flex items-center justify-center text-2xl">
+                                    {messages.map((message) => (
+
+                                        <div
+                                            key={message.id}
+                                            className={`flex ${
+                                                message.sender === "user"
+                                                    ? "justify-end"
+                                                    : "justify-start"
+                                            }`}
+                                        >
+
+                                            {/* Bot icon */}
+
+                                            {message.sender === "bot" && (
+
+                                                <div className="w-9 h-9 flex-shrink-0 rounded-full bg-[#263528] flex items-center justify-center text-lg mr-3">
+                                                    🧒
+                                                </div>
+
+                                            )}
+
+
+                                            {/* Message */}
+
+                                            <div
+                                                className={`max-w-[80%] px-5 py-3 rounded-2xl leading-7 ${
+                                                    message.sender === "user"
+                                                        ? "bg-[#263528] text-white rounded-br-sm"
+                                                        : "bg-[#f7f1e7] text-[#263528] rounded-bl-sm"
+                                                }`}
+                                            >
+                                                {message.text}
+                                            </div>
+
+                                        </div>
+
+                                    ))}
+
+
+                                    {/* THINKING */}
+
+                                    {loading && (
+
+                                        <div className="flex items-center gap-3">
+
+                                            <div className="w-9 h-9 rounded-full bg-[#263528] flex items-center justify-center">
                                                 🧒
                                             </div>
 
-                                            <div className="bg-[#f7f1e7] rounded-2xl rounded-tl-none px-5 py-4 max-w-xl">
+                                            <div className="bg-[#f7f1e7] px-5 py-3 rounded-2xl rounded-bl-sm">
 
-                                                <p className="text-[#263528] font-medium leading-7">
+                                                <div className="flex gap-1">
 
-                                                    {step === 1 &&
-                                                        "Namaste! 👋 Where are we heading? Tell me which place in Uttarakhand you'd like to explore."}
+                                                    <span className="w-2 h-2 bg-[#b56b45] rounded-full animate-bounce"></span>
 
-                                                    {step === 2 &&
-                                                        `Lovely choice! 🌿 ${destination} sounds wonderful. How many days do you have for your Pahadi escape?`}
+                                                    <span
+                                                        className="w-2 h-2 bg-[#b56b45] rounded-full animate-bounce"
+                                                        style={{
+                                                            animationDelay:
+                                                                "150ms",
+                                                        }}
+                                                    ></span>
 
-                                                    {step === 3 &&
-                                                        `Perfect! 🏔️ Now tell me your approximate budget for the trip.`}
+                                                    <span
+                                                        className="w-2 h-2 bg-[#b56b45] rounded-full animate-bounce"
+                                                        style={{
+                                                            animationDelay:
+                                                                "300ms",
+                                                        }}
+                                                    ></span>
 
-                                                    {step === 4 &&
-                                                        "Almost there! 😊 What kind of Pahadi experience are you looking for?"}
-
-                                                </p>
+                                                </div>
 
                                             </div>
 
                                         </div>
 
+                                    )}
 
-                                        {/* ================= STEP 1 ================= */}
 
-                                        {step === 1 && (
+                                    {/* ================================================= */}
+                                    {/* =============== GENERATED ITINERARY =========== */}
+                                    {/* ================================================= */}
 
-                                            <div>
+                                    {result && (
 
-                                                <label className="block text-sm font-semibold text-gray-600 mb-2">
-                                                    Your destination
-                                                </label>
+                                        <div className="mt-8">
 
-                                                <input
-                                                    type="text"
-                                                    value={destination}
-                                                    onChange={(e) =>
-                                                        setDestination(e.target.value)
-                                                    }
-                                                    onKeyDown={(e) => {
-                                                        if (e.key === "Enter") {
-                                                            handleNext();
-                                                        }
-                                                    }}
-                                                    placeholder="e.g. Mussoorie, Nainital, Auli..."
-                                                    className="w-full border border-gray-300 rounded-xl p-4 text-lg outline-none transition focus:border-[#b56b45] focus:ring-2 focus:ring-[#b56b45]/20"
-                                                />
+                                            {/* Itinerary header */}
 
-                                                <div className="flex flex-wrap gap-2 mt-4">
+                                            <div className="flex items-center gap-3 mb-4">
 
-                                                    {[
-                                                        "Mussoorie",
-                                                        "Nainital",
-                                                        "Rishikesh",
-                                                        "Auli",
-                                                        "Chopta",
-                                                    ].map((place) => (
+                                                <div className="w-11 h-11 rounded-full bg-[#263528] flex items-center justify-center text-2xl shadow-md">
+                                                    🏔️
+                                                </div>
+
+                                                <div>
+
+                                                    <h2 className="text-xl md:text-2xl font-bold text-[#263528]">
+                                                        Your Pahadi Journey ✨
+                                                    </h2>
+
+                                                    <p className="text-sm text-gray-500">
+                                                        Planned specially by
+                                                        Pahadi Buddy
+                                                    </p>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            {/* Trip summary */}
+
+                                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+
+                                                <div className="bg-[#f7f1e7] rounded-xl p-3 text-center">
+
+                                                    <p className="text-xs text-gray-500">
+                                                        Destination
+                                                    </p>
+
+                                                    <p className="font-semibold text-[#263528] mt-1">
+                                                        {destination}
+                                                    </p>
+
+                                                </div>
+
+
+                                                <div className="bg-[#f7f1e7] rounded-xl p-3 text-center">
+
+                                                    <p className="text-xs text-gray-500">
+                                                        Duration
+                                                    </p>
+
+                                                    <p className="font-semibold text-[#263528] mt-1">
+                                                        {days} days
+                                                    </p>
+
+                                                </div>
+
+
+                                                <div className="bg-[#f7f1e7] rounded-xl p-3 text-center">
+
+                                                    <p className="text-xs text-gray-500">
+                                                        Budget
+                                                    </p>
+
+                                                    <p className="font-semibold text-[#263528] mt-1">
+                                                        ₹
+                                                        {Number(
+                                                            budget
+                                                        ).toLocaleString(
+                                                            "en-IN"
+                                                        )}
+                                                    </p>
+
+                                                </div>
+
+
+                                                <div className="bg-[#f7f1e7] rounded-xl p-3 text-center">
+
+                                                    <p className="text-xs text-gray-500">
+                                                        Style
+                                                    </p>
+
+                                                    <p className="font-semibold text-[#263528] mt-1">
+                                                        {travelStyle}
+                                                    </p>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            {/* Actual AI response */}
+
+                                            <div className="bg-white border border-[#e5d7c3] rounded-2xl p-6 shadow-sm">
+
+                                                <div className="flex items-center gap-2 mb-4">
+
+                                                    <span className="text-xl">
+                                                        🌿
+                                                    </span>
+
+                                                    <h3 className="font-bold text-[#263528]">
+                                                        Your Itinerary
+                                                    </h3>
+
+                                                </div>
+
+                                                <div className="text-gray-700 leading-8 whitespace-pre-wrap">
+                                                    {result}
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    )}
+
+
+                                    {/* Error */}
+
+                                    {error && (
+
+                                        <div className="bg-red-50 border border-red-200 text-red-600 p-4 rounded-xl text-sm">
+                                            {error}
+                                        </div>
+
+                                    )}
+
+
+                                    <div ref={messagesEndRef}></div>
+
+                                </div>
+
+
+                                {/* ================================================= */}
+                                {/* ================= QUICK OPTIONS ================= */}
+                                {/* ================================================= */}
+
+                                {!loading && !result && (
+
+                                    <div className="px-6 md:px-8 pb-4">
+
+                                        {/* Destination */}
+
+                                        {currentStep === "destination" && (
+
+                                            <div className="flex flex-wrap gap-2">
+
+                                                {destinationOptions.map(
+                                                    (place) => (
 
                                                         <button
                                                             key={place}
                                                             onClick={() =>
-                                                                setDestination(place)
+                                                                handleAnswer(
+                                                                    place
+                                                                )
                                                             }
-                                                            className="px-4 py-2 rounded-full bg-[#f7f1e7] hover:bg-[#e9dcc9] text-[#263528] text-sm font-medium transition"
+                                                            className="px-4 py-2 rounded-full bg-[#f7f1e7] hover:bg-[#e7d9c6] text-[#263528] text-sm font-medium transition"
                                                         >
                                                             {place}
                                                         </button>
 
-                                                    ))}
-
-                                                </div>
+                                                    )
+                                                )}
 
                                             </div>
 
                                         )}
 
 
-                                        {/* ================= STEP 2 ================= */}
+                                        {/* Days */}
 
-                                        {step === 2 && (
+                                        {currentStep === "days" && (
 
-                                            <div>
+                                            <div className="flex flex-wrap gap-2">
 
-                                                <label className="block text-sm font-semibold text-gray-600 mb-2">
-                                                    How long are we staying?
-                                                </label>
-
-                                                <input
-                                                    type="number"
-                                                    min="1"
-                                                    value={days}
-                                                    onChange={(e) =>
-                                                        setDays(e.target.value)
-                                                    }
-                                                    placeholder="Number of days"
-                                                    className="w-full border border-gray-300 rounded-xl p-4 text-lg outline-none transition focus:border-[#b56b45] focus:ring-2 focus:ring-[#b56b45]/20"
-                                                />
-
-                                                <div className="flex flex-wrap gap-3 mt-4">
-
-                                                    {[2, 3, 4, 5, 7].map((number) => (
+                                                {daysOptions.map(
+                                                    (number) => (
 
                                                         <button
                                                             key={number}
                                                             onClick={() =>
-                                                                setDays(String(number))
+                                                                handleAnswer(
+                                                                    number
+                                                                )
                                                             }
-                                                            className="px-5 py-3 rounded-xl bg-[#f7f1e7] hover:bg-[#e9dcc9] text-[#263528] font-semibold transition"
+                                                            className="px-4 py-2 rounded-full bg-[#f7f1e7] hover:bg-[#e7d9c6] text-[#263528] text-sm font-medium transition"
                                                         >
                                                             {number} days
                                                         </button>
 
-                                                    ))}
-
-                                                </div>
+                                                    )
+                                                )}
 
                                             </div>
 
                                         )}
 
 
-                                        {/* ================= STEP 3 ================= */}
+                                        {/* Budget */}
 
-                                        {step === 3 && (
+                                        {currentStep === "budget" && (
 
-                                            <div>
+                                            <div className="flex flex-wrap gap-2">
 
-                                                <label className="block text-sm font-semibold text-gray-600 mb-2">
-                                                    What's your trip budget?
-                                                </label>
-
-                                                <div className="relative">
-
-                                                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">
-                                                        ₹
-                                                    </span>
-
-                                                    <input
-                                                        type="number"
-                                                        value={budget}
-                                                        onChange={(e) =>
-                                                            setBudget(e.target.value)
-                                                        }
-                                                        placeholder="Approximate budget"
-                                                        className="w-full border border-gray-300 rounded-xl p-4 pl-9 text-lg outline-none transition focus:border-[#b56b45] focus:ring-2 focus:ring-[#b56b45]/20"
-                                                    />
-
-                                                </div>
-
-                                                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
-
-                                                    {[
-                                                        "5000",
-                                                        "10000",
-                                                        "20000",
-                                                        "30000",
-                                                    ].map((amount) => (
+                                                {budgetOptions.map(
+                                                    (amount) => (
 
                                                         <button
                                                             key={amount}
                                                             onClick={() =>
-                                                                setBudget(amount)
+                                                                handleAnswer(
+                                                                    amount
+                                                                )
                                                             }
-                                                            className="py-3 rounded-xl bg-[#f7f1e7] hover:bg-[#e9dcc9] text-[#263528] font-semibold transition"
+                                                            className="px-4 py-2 rounded-full bg-[#f7f1e7] hover:bg-[#e7d9c6] text-[#263528] text-sm font-medium transition"
                                                         >
-                                                            ₹{Number(amount).toLocaleString()}
+                                                            ₹
+                                                            {Number(
+                                                                amount
+                                                            ).toLocaleString(
+                                                                "en-IN"
+                                                            )}
                                                         </button>
 
-                                                    ))}
-
-                                                </div>
+                                                    )
+                                                )}
 
                                             </div>
 
                                         )}
 
 
-                                        {/* ================= STEP 4 ================= */}
+                                        {/* Travel Style */}
 
-                                        {step === 4 && (
+                                        {currentStep === "style" && (
 
-                                            <div>
+                                            <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
 
-                                                <label className="block text-sm font-semibold text-gray-600 mb-4">
-                                                    Choose your Pahadi vibe
-                                                </label>
-
-                                                <div className="grid grid-cols-2 gap-3">
-
-                                                    {[
-                                                        {
-                                                            name: "Nature",
-                                                            icon: "🌿",
-                                                        },
-                                                        {
-                                                            name: "Adventure",
-                                                            icon: "🏔️",
-                                                        },
-                                                        {
-                                                            name: "Local Life",
-                                                            icon: "🏡",
-                                                        },
-                                                        {
-                                                            name: "Culture",
-                                                            icon: "🛕",
-                                                        },
-                                                        {
-                                                            name: "Food",
-                                                            icon: "🍲",
-                                                        },
-                                                        {
-                                                            name: "Relaxed",
-                                                            icon: "☕",
-                                                        },
-                                                    ].map((style) => (
+                                                {styleOptions.map(
+                                                    (style) => (
 
                                                         <button
                                                             key={style.name}
                                                             onClick={() =>
-                                                                setTravelStyle(style.name)
+                                                                handleAnswer(
+                                                                    style.name
+                                                                )
                                                             }
-                                                            className={`p-4 rounded-xl border text-left transition duration-300 ${
-                                                                travelStyle === style.name
-                                                                    ? "border-[#b56b45] bg-[#f7f1e7] shadow-sm"
-                                                                    : "border-gray-200 hover:border-[#b56b45]/50 hover:bg-[#faf7f1]"
-                                                            }`}
+                                                            className="p-3 rounded-xl bg-[#f7f1e7] hover:bg-[#e7d9c6] text-[#263528] text-sm font-semibold transition"
                                                         >
 
-                                                            <div className="text-2xl mb-1">
-                                                                {style.icon}
-                                                            </div>
+                                                            <span className="text-xl mr-2">
+                                                                {
+                                                                    style.icon
+                                                                }
+                                                            </span>
 
-                                                            <div className="font-semibold text-[#263528]">
-                                                                {style.name}
-                                                            </div>
+                                                            {style.name}
 
                                                         </button>
 
-                                                    ))}
-
-                                                </div>
+                                                    )
+                                                )}
 
                                             </div>
 
                                         )}
 
+                                    </div>
 
-                                        {/* ================= ERROR ================= */}
-
-                                        {error && (
-
-                                            <p className="text-red-500 text-sm mt-5">
-                                                {error}
-                                            </p>
-
-                                        )}
+                                )}
 
 
-                                        {/* ================= BUTTONS ================= */}
+                                {/* ================================================= */}
+                                {/* ================= INPUT ========================= */}
+                                {/* ================================================= */}
 
-                                        <div className="flex gap-3 mt-8">
+                                {!result && (
 
-                                            {step > 1 && (
+                                    <div className="p-5 md:p-6 border-t border-[#e5d7c3] bg-[#fffdf8]">
 
-                                                <button
-                                                    onClick={handleBack}
-                                                    className="px-6 py-3 rounded-xl border border-gray-300 text-gray-600 hover:bg-gray-50 font-semibold transition"
-                                                >
-                                                    ← Back
-                                                </button>
+                                        <div className="flex gap-3">
 
-                                            )}
+                                            <input
+                                                type={
+                                                    currentStep === "days" ||
+                                                    currentStep === "budget"
+                                                        ? "number"
+                                                        : "text"
+                                                }
+                                                value={input}
+                                                onChange={(e) =>
+                                                    setInput(e.target.value)
+                                                }
+                                                onKeyDown={handleKeyDown}
+                                                disabled={loading}
+                                                placeholder={
+                                                    currentStep === "destination"
+                                                        ? "Type a destination..."
+                                                        : currentStep === "days"
+                                                        ? "How many days?"
+                                                        : currentStep === "budget"
+                                                        ? "Your budget in ₹..."
+                                                        : "Choose your Pahadi vibe..."
+                                                }
+                                                className="flex-1 border border-gray-300 rounded-xl px-4 py-3 outline-none focus:border-[#b56b45] focus:ring-2 focus:ring-[#b56b45]/20 disabled:bg-gray-100"
+                                            />
 
                                             <button
-                                                onClick={handleNext}
-                                                disabled={loading}
-                                                className="flex-1 bg-[#263528] hover:bg-[#1d291f] text-white py-4 rounded-xl font-semibold text-lg transition duration-300 shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
+                                                onClick={() =>
+                                                    handleAnswer()
+                                                }
+                                                disabled={
+                                                    loading ||
+                                                    !input.trim()
+                                                }
+                                                className="px-5 md:px-7 rounded-xl bg-[#263528] hover:bg-[#1d291f] text-white font-semibold transition disabled:opacity-40 disabled:cursor-not-allowed"
                                             >
-                                                {loading
-                                                    ? "Pahadi Buddy is planning... 🏔️"
-                                                    : step === 4
-                                                    ? "Create My Pahadi Journey →"
-                                                    : "Continue →"}
+                                                Send
                                             </button>
 
                                         </div>
 
-                                    </>
+                                        <p className="text-xs text-gray-400 mt-3 text-center">
+                                            Your Pahadi Buddy will guide you
+                                            step-by-step 🌿
+                                        </p>
+
+                                    </div>
+
+                                )}
+
+
+                                {/* ================================================= */}
+                                {/* ================= RESET ========================= */}
+                                {/* ================================================= */}
+
+                                {result && (
+
+                                    <div className="p-5 md:p-6 border-t border-[#e5d7c3] bg-[#fffdf8]">
+
+                                        <button
+                                            onClick={resetPlanner}
+                                            className="w-full bg-[#263528] hover:bg-[#1d291f] text-white py-3 rounded-xl font-semibold transition shadow-lg"
+                                        >
+                                            ↻ Plan Another Pahadi Journey
+                                        </button>
+
+                                    </div>
 
                                 )}
 
