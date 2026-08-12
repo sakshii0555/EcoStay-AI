@@ -6,26 +6,31 @@ import almora from "../data/districts/almora";
 import bageshwar from "../data/districts/bageshwar";
 import chamoli from "../data/districts/chamoli";
 import champawat from "../data/districts/champawat";
-import dehradun from "../data/districts/dehradun"
+import dehradun from "../data/districts/dehradun";
 import haridwar from "../data/districts/haridwar";
 import nainital from "../data/districts/nainital";
 import pauri from "../data/districts/pauri";
+import pithoragarh from "../data/districts/pithoragarh";
+import rudraprayag from "../data/districts/rudraprayag";
+
 
 function DistrictPage() {
     const { stateId, districtId } = useParams();
 
     // ================= ALL UTTARAKHAND DISTRICTS =================
 
-   const districts = {
-    almora,
-    bageshwar,
-    chamoli,
-    champawat,
-    dehradun,
-    haridwar,
-    nainital,
-    "pauri-garhwal": pauri
-};
+    const districts = {
+        almora,
+        bageshwar,
+        chamoli,
+        champawat,
+        dehradun,
+        haridwar,
+        nainital,
+        "pauri-garhwal": pauri,
+        pithoragarh,
+        rudraprayag
+    };
 
     // Only Uttarakhand is supported
     const district =
@@ -176,12 +181,12 @@ function DistrictPage() {
 
                                 {/* Image */}
 
-                                <div className="h-64 overflow-hidden">
+                                <div className="h-80 w-full overflow-hidden bg-white flex items-center justify-center">
 
                                     <img
                                         src={place.image}
                                         alt={place.name}
-                                        className="w-full h-full object-cover hover:scale-105 transition duration-500"
+                                        className="w-full h-full object-contain hover:scale-105 transition duration-500"
                                     />
 
                                 </div>
