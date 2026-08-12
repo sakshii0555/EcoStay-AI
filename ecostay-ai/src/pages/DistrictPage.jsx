@@ -8,20 +8,24 @@ import chamoli from "../data/districts/chamoli";
 import champawat from "../data/districts/champawat";
 import dehradun from "../data/districts/dehradun"
 import haridwar from "../data/districts/haridwar";
+import nainital from "../data/districts/nainital";
+import pauri from "../data/districts/pauri";
 
 function DistrictPage() {
     const { stateId, districtId } = useParams();
 
     // ================= ALL UTTARAKHAND DISTRICTS =================
 
-    const districts = {
-        almora,
-        bageshwar,
-        chamoli,
-        champawat,
-        dehradun,
-        haridwar
-           };
+   const districts = {
+    almora,
+    bageshwar,
+    chamoli,
+    champawat,
+    dehradun,
+    haridwar,
+    nainital,
+    "pauri-garhwal": pauri
+};
 
     // Only Uttarakhand is supported
     const district =
