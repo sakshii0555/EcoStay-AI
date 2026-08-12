@@ -4,6 +4,10 @@ import Footer from "../components/Footer";
 
 import almora from "../data/districts/almora";
 import bageshwar from "../data/districts/bageshwar";
+import chamoli from "../data/districts/chamoli";
+import champawat from "../data/districts/champawat";
+import dehradun from "../data/districts/dehradun"
+import haridwar from "../data/districts/haridwar";
 
 function DistrictPage() {
     const { stateId, districtId } = useParams();
@@ -12,7 +16,11 @@ function DistrictPage() {
 
     const districts = {
         almora,
-        bageshwar
+        bageshwar,
+        chamoli,
+        champawat,
+        dehradun,
+        haridwar
            };
 
     // Only Uttarakhand is supported
