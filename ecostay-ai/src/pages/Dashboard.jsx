@@ -281,17 +281,21 @@ function Dashboard() {
 
                     </div>
 
-
                     {/* ================= DISTRICT CARDS ================= */}
 
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                        {uttarakhandDistricts.map((district) => (
-                            <DistrictCard
-                                key={district.id}
-                                district={district}
-                            />
-                        ))}
+                        {uttarakhandDistricts
+                            .filter(
+                                (district) =>
+                                    district.id !== "udham-singh-nagar"
+                            )
+                            .map((district) => (
+                                <DistrictCard
+                                    key={district.id}
+                                    district={district}
+                                />
+                            ))}
 
                     </div>
 
@@ -333,7 +337,6 @@ function Dashboard() {
 
                     </div>
 
-
                     {/* ADD BUTTON */}
 
                     <button
@@ -357,7 +360,6 @@ function Dashboard() {
                     </button>
 
                 </div>
-
 
                 {/* ================= HOMESTAY CARDS ================= */}
 
@@ -442,7 +444,6 @@ function Dashboard() {
 
             </div>
 
-
             {/* ================= ADD / EDIT MODAL ================= */}
 
             {showModal && (
@@ -456,7 +457,6 @@ function Dashboard() {
                                 ? "Edit Homestay"
                                 : "Add Homestay"}
                         </h2>
-
 
                         <input
                             type="text"
@@ -523,7 +523,6 @@ function Dashboard() {
                             }
                             className="w-full border rounded-lg p-3 mb-6"
                         />
-
 
                         <div className="flex justify-end gap-3">
 

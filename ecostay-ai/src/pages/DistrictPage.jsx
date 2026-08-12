@@ -12,6 +12,7 @@ import nainital from "../data/districts/nainital";
 import pauri from "../data/districts/pauri";
 import pithoragarh from "../data/districts/pithoragarh";
 import rudraprayag from "../data/districts/rudraprayag";
+import tehri from "../data/districts/tehri";
 
 
 function DistrictPage() {
@@ -19,24 +20,26 @@ function DistrictPage() {
 
     // ================= ALL UTTARAKHAND DISTRICTS =================
 
-    const districts = {
-        almora,
-        bageshwar,
-        chamoli,
-        champawat,
-        dehradun,
-        haridwar,
-        nainital,
-        "pauri-garhwal": pauri,
-        pithoragarh,
-        rudraprayag
-    };
+   const districts = {
+    almora,
+    bageshwar,
+    chamoli,
+    champawat,
+    dehradun,
+    haridwar,
+    nainital,
+    "pauri-garhwal": pauri,
+    pithoragarh,
+    rudraprayag,
+    "tehri-garhwal": tehri
+};
 
     // Only Uttarakhand is supported
     const district =
         stateId === "uttarakhand"
             ? districts[districtId]
             : null;
+
 
     // ================= DISTRICT NOT FOUND =================
 
@@ -46,6 +49,7 @@ function DistrictPage() {
                 <Navbar />
 
                 <div className="min-h-screen flex items-center justify-center bg-[#f7f3eb] px-6">
+
                     <div className="text-center">
 
                         <div className="text-6xl mb-5">
@@ -61,6 +65,7 @@ function DistrictPage() {
                         </p>
 
                     </div>
+
                 </div>
 
                 <Footer />
@@ -68,10 +73,12 @@ function DistrictPage() {
         );
     }
 
+
     return (
         <div className="bg-[#f7f3eb] min-h-screen text-[#263528]">
 
             <Navbar />
+
 
             {/* =====================================================
                 DISTRICT HERO
@@ -86,9 +93,12 @@ function DistrictPage() {
                 />
 
                 {/* Dark overlay */}
+
                 <div className="absolute inset-0 bg-black/45"></div>
 
+
                 {/* Hero content */}
+
                 <div className="relative z-10 h-full flex flex-col items-center justify-center text-center text-white px-6">
 
                     <p className="uppercase tracking-[0.3em] text-sm font-semibold mb-4 text-[#f0a35b]">
@@ -129,6 +139,7 @@ function DistrictPage() {
 
                 </div>
 
+
                 <div className="bg-white rounded-3xl shadow-sm border border-[#e5ded2] p-8 md:p-12">
 
                     <p className="text-[#4b5563] text-lg leading-8 whitespace-pre-line">
@@ -144,13 +155,14 @@ function DistrictPage() {
                 TOURIST ATTRACTIONS
             ====================================================== */}
 
-            <section className="bg-[#eee8dc] px-6 py-20">
+            <section className="bg-[#eee8dc] px-5 md:px-8 py-20">
 
-                <div className="max-w-6xl mx-auto">
+                <div className="max-w-7xl mx-auto">
 
-                    {/* Section heading */}
 
-                    <div className="text-center mb-14">
+                    {/* ================= SECTION HEADING ================= */}
+
+                    <div className="text-center mb-16">
 
                         <p className="text-[#b56b45] font-semibold uppercase tracking-[0.25em] text-sm">
                             Explore the Pahad
@@ -160,7 +172,7 @@ function DistrictPage() {
                             Places to Visit in {district.name}
                         </h2>
 
-                        <p className="text-gray-600 text-lg mt-4 max-w-2xl mx-auto">
+                        <p className="text-gray-600 text-lg mt-5 max-w-3xl mx-auto leading-8">
                             Discover the landscapes, culture and hidden
                             experiences that make {district.name} special.
                         </p>
@@ -168,51 +180,114 @@ function DistrictPage() {
                     </div>
 
 
-                    {/* Attraction cards */}
+                    {/* ================= LARGE ATTRACTION GRID ================= */}
 
-                    <div className="grid md:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
                         {district.attractions?.map((place, index) => (
 
                             <article
                                 key={place.id}
-                                className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition duration-300"
+                                className="
+                                    bg-white
+                                    rounded-[28px]
+                                    overflow-hidden
+                                    shadow-md
+                                    hover:shadow-2xl
+                                    transition-all
+                                    duration-500
+                                "
                             >
 
-                                {/* Image */}
 
-                                <div className="h-80 w-full overflow-hidden bg-white flex items-center justify-center">
+                                {/* =================================================
+                                    LARGE TOURIST PHOTO
+                                ================================================== */}
+
+                                <div
+                                    className="
+                                        w-full
+                                        h-[380px]
+                                        md:h-[440px]
+                                        bg-white
+                                        flex
+                                        items-center
+                                        justify-center
+                                        overflow-hidden
+                                    "
+                                >
 
                                     <img
                                         src={place.image}
                                         alt={place.name}
-                                        className="w-full h-full object-contain hover:scale-105 transition duration-500"
+                                        className="
+                                            w-full
+                                            h-full
+                                            object-contain
+                                            transition-transform
+                                            duration-700
+                                            hover:scale-[1.02]
+                                        "
                                     />
 
                                 </div>
 
 
-                                {/* Content */}
+                                {/* =================================================
+                                    ATTRACTION INFORMATION
+                                ================================================== */}
 
-                                <div className="p-7">
+                                <div className="px-8 md:px-9 py-8">
 
-                                    <div className="flex items-center justify-between gap-4">
 
-                                        <span className="text-sm font-semibold text-[#b56b45] uppercase tracking-wider">
+                                    {/* Category + Number */}
+
+                                    <div className="flex items-center justify-between">
+
+                                        <span
+                                            className="
+                                                text-[#b56b45]
+                                                font-semibold
+                                                uppercase
+                                                tracking-wider
+                                                text-sm
+                                            "
+                                        >
                                             {place.category}
                                         </span>
 
-                                        <span className="text-sm text-gray-400">
+                                        <span className="text-gray-400 text-sm">
                                             {String(index + 1).padStart(2, "0")}
                                         </span>
 
                                     </div>
 
-                                    <h3 className="text-2xl font-bold mt-3 mb-4 text-[#263528]">
+
+                                    {/* Attraction name */}
+
+                                    <h3
+                                        className="
+                                            text-2xl
+                                            md:text-3xl
+                                            font-bold
+                                            mt-3
+                                            mb-5
+                                            text-[#263528]
+                                        "
+                                    >
                                         {place.name}
                                     </h3>
 
-                                    <p className="text-gray-600 leading-8">
+
+                                    {/* Description */}
+
+                                    <p
+                                        className="
+                                            text-gray-600
+                                            leading-8
+                                            text-[16px]
+                                        "
+                                    >
                                         {place.description}
                                     </p>
 
@@ -253,7 +328,7 @@ function DistrictPage() {
                 </div>
 
 
-                {/* Homestay cards */}
+                {/* ================= HOMESTAY CARDS ================= */}
 
                 {district.homestays?.length > 0 ? (
 
@@ -263,7 +338,17 @@ function DistrictPage() {
 
                             <article
                                 key={homestay.id}
-                                className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 border border-[#e5ded2]"
+                                className="
+                                    bg-white
+                                    rounded-3xl
+                                    overflow-hidden
+                                    shadow-md
+                                    hover:shadow-xl
+                                    transition
+                                    duration-300
+                                    border
+                                    border-[#e5ded2]
+                                "
                             >
 
                                 {/* Homestay image */}
@@ -291,22 +376,31 @@ function DistrictPage() {
                                         📍 {homestay.location}
                                     </p>
 
+
                                     {homestay.price && (
+
                                         <p className="text-[#b56b45] font-semibold mt-3">
                                             ₹{homestay.price} / night
                                         </p>
+
                                     )}
 
+
                                     {homestay.rating && (
+
                                         <p className="text-gray-600 mt-2">
                                             ⭐ {homestay.rating}
                                         </p>
+
                                     )}
 
+
                                     {homestay.description && (
+
                                         <p className="text-gray-600 leading-7 mt-4">
                                             {homestay.description}
                                         </p>
+
                                     )}
 
                                 </div>
