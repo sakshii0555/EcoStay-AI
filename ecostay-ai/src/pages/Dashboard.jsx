@@ -255,54 +255,72 @@ function Dashboard() {
 
     if (!isAdmin) {
         return (
-            <div className="bg-gray-50 min-h-screen">
+            <div
+                className="min-h-screen bg-cover bg-center bg-fixed relative"
+                style={{
+                    backgroundImage:
+                        "url('/images/dashboard-bg.jpg')",
+                }}
+            >
+                {/* ==============================
+                    BACKGROUND OVERLAY
+                ============================== */}
 
-                <Navbar />
+                <div className="absolute inset-0 bg-black/30"></div>
 
-                <main className="max-w-6xl mx-auto pt-32 px-6 pb-16">
+                {/* ==============================
+                    DASHBOARD CONTENT
+                ============================== */}
 
-                    {/* ================= HEADER ================= */}
+                <div className="relative z-10 min-h-screen">
 
-                    <div className="text-center mb-12">
+                    <Navbar />
 
-                        <p className="text-green-600 font-semibold uppercase tracking-[0.2em] text-sm">
-                            EcoStay AI
-                        </p>
+                    <main className="max-w-6xl mx-auto pt-32 px-6 pb-16">
 
-                        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mt-3">
-                            Explore Uttarakhand 🌿
-                        </h1>
+                        {/* ================= HEADER ================= */}
 
-                        <p className="text-gray-600 text-lg mt-4 max-w-2xl mx-auto">
-                            Discover the 13 districts of Uttarakhand —
-                            from peaceful mountain villages and sacred towns
-                            to forests, valleys and local Pahadi experiences.
-                        </p>
+                        <div className="text-center mb-12">
 
-                    </div>
+                            <p className="text-green-300 font-semibold uppercase tracking-[0.2em] text-sm drop-shadow-md">
+                                EcoStay AI
+                            </p>
 
-                    {/* ================= DISTRICT CARDS ================= */}
+                            <h1 className="text-4xl md:text-5xl font-bold text-white mt-3 drop-shadow-lg">
+                                Explore Uttarakhand 🌿
+                            </h1>
 
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <p className="text-white/90 text-lg mt-4 max-w-2xl mx-auto drop-shadow-md">
+                                Discover the 13 districts of Uttarakhand —
+                                from peaceful mountain villages and sacred towns
+                                to forests, valleys and local Pahadi experiences.
+                            </p>
 
-                        {uttarakhandDistricts
-                            .filter(
-                                (district) =>
-                                    district.id !== "udham-singh-nagar"
-                            )
-                            .map((district) => (
-                                <DistrictCard
-                                    key={district.id}
-                                    district={district}
-                                />
-                            ))}
+                        </div>
 
-                    </div>
+                        {/* ================= DISTRICT CARDS ================= */}
 
-                </main>
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                <Footer />
+                            {uttarakhandDistricts
+                                .filter(
+                                    (district) =>
+                                        district.id !== "udham-singh-nagar"
+                                )
+                                .map((district) => (
+                                    <DistrictCard
+                                        key={district.id}
+                                        district={district}
+                                    />
+                                ))}
 
+                        </div>
+
+                    </main>
+
+                    <Footer />
+
+                </div>
             </div>
         );
     }

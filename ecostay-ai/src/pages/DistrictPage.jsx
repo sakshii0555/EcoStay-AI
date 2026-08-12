@@ -13,6 +13,7 @@ import pauri from "../data/districts/pauri";
 import pithoragarh from "../data/districts/pithoragarh";
 import rudraprayag from "../data/districts/rudraprayag";
 import tehri from "../data/districts/tehri";
+import uttarkashi from "../data/districts/uttarkashi";
 
 
 function DistrictPage() {
@@ -31,7 +32,8 @@ function DistrictPage() {
     "pauri-garhwal": pauri,
     pithoragarh,
     rudraprayag,
-    "tehri-garhwal": tehri
+    "tehri-garhwal": tehri,
+    uttarkashi
 };
 
     // Only Uttarakhand is supported
