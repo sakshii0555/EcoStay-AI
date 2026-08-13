@@ -53,13 +53,13 @@ A visit to Banasur Ka Kila can therefore become both a cultural experience and a
 `
         },
 
-        {
-            id: "abbott-mount",
-            name: "Abbott Mount",
-            category: "Nature & Mountain Views",
-            image: "/images/districts/uttarakhand/champawat/abbott-mount.png",
+       {
+    id: "abbott-mount",
+    name: "Abbott Mount",
+    category: "Nature & Mountain Views",
+    image: "/images/districts/uttarakhand/champawat/abbott%20mount.png",
 
-            description: `
+    description: `
 Abbott Mount is a peaceful hill destination in the Champawat region known for its forests, mountain scenery and panoramic views of the Himalayas. Located at an elevated position, the area provides a calm environment surrounded by pine and deodar trees.
 
 The destination has a distinctive colonial-era character and is known for its old cottages and quiet surroundings. Its relatively uncrowded atmosphere makes it particularly attractive to travellers looking for a slower mountain experience.
@@ -70,7 +70,7 @@ Abbott Mount is best experienced without rushing. Travellers can explore the for
 
 For EcoStay AI, Abbott Mount represents the nature and relaxation side of Champawat and can be particularly appealing to travellers searching for a quiet escape from busy tourist centres.
 `
-        },
+},
 
         {
             id: "mayawati-ashram",

@@ -114,24 +114,22 @@ For EcoStay AI, Rajaji National Park demonstrates that a trip to Haridwar can in
 `
         },
 
-        {
-            id: "daksheshwar-mahadev-temple",
-            name: "Daksheshwar Mahadev Temple",
-            category: "Heritage & Spirituality",
-            image: "/images/districts/uttarakhand/haridwar/daksheshwar-mahadev-temple.png",
+  {
+    id: "daksheshwar-mahadev",
+    name: "Daksheshwar Mahadev Temple",
+    category: "Spirituality & Heritage",
+    image: "/images/districts/uttarakhand/haridwar/daksheshwar.png",
 
-            description: `
-Daksheshwar Mahadev Temple is an important Shiva temple located in Kankhal, an ancient and culturally significant area of Haridwar. The temple is associated with the story of Daksha Prajapati and is traditionally connected with the events surrounding Sati and Lord Shiva.
+    description: `
+Daksheshwar Mahadev Temple is an important Shiva temple located in Kankhal, Haridwar. The temple is associated with the ancient legend of Daksha Prajapati and holds an important place in the religious traditions of the region.
 
-The temple is particularly significant within Hindu mythology and attracts devotees interested in experiencing the religious traditions associated with the site. Its location near the Ganga also adds to the spiritual character of the surroundings.
+The temple complex has a peaceful spiritual atmosphere and attracts devotees throughout the year. Its traditional architecture, religious significance and connection with the mythology of Lord Shiva make it an important cultural attraction in Haridwar.
 
-The architecture and temple complex provide visitors with an opportunity to observe traditional religious design and local worship practices. The atmosphere is generally quieter than the busiest areas around Har Ki Pauri, allowing visitors to experience another side of Haridwar's spiritual heritage.
+Visitors can explore the temple complex and experience the spiritual heritage of Kankhal, one of the historic areas of Haridwar.
 
-Kankhal itself has a long association with pilgrimage and contains several temples and religious sites, making the area interesting to explore as part of a broader cultural itinerary.
-
-For EcoStay AI, Daksheshwar Mahadev Temple adds historical mythology, spirituality and local heritage to the Haridwar experience.
+For EcoStay AI, Daksheshwar Mahadev Temple represents the spiritual and cultural heritage of Haridwar.
 `
-        }
+},
 
     ],
 

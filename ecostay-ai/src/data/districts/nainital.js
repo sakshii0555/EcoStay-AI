@@ -60,23 +60,21 @@ For EcoStay AI, Naina Devi Temple adds an important spiritual and cultural dimen
         },
 
         {
-            id: "snow-view-point",
-            name: "Snow View Point",
-            category: "Nature & Himalayan Views",
-            image: "/images/districts/uttarakhand/nainital/snow-view-point.jpg",
+    id: "snow-view-point",
+    name: "Snow View Point",
+    category: "Nature & Himalayan Views",
+    image: "/images/districts/uttarakhand/nainital/snow-view-point.jpg",
 
-            description: `
-Snow View Point is one of the popular viewpoints around Nainital and is known for its panoramic views of the Himalayan mountain ranges. Situated at an elevated location, the viewpoint provides visitors with an opportunity to look across the surrounding hills and, on clear days, towards distant snow-covered peaks.
+    description: `
+Snow View Point is one of the most popular viewpoints in Nainital, situated at an elevation of about 2,270 metres. The viewpoint offers spectacular panoramic views of the snow-covered Himalayan peaks.
 
-The journey to the viewpoint is itself part of the experience, with the landscape changing as travellers move higher into the hills. The surrounding forests and mountain environment provide a peaceful contrast to the busy areas of Nainital town.
+Visitors can enjoy views of prominent peaks including Nanda Devi, Trishul and Nanda Kot. The location can be reached by road as well as by the aerial ropeway from Mallital.
 
-Clear weather offers the best opportunity to appreciate the Himalayan scenery. Visitors can spend time photographing the mountains, observing the changing light across the valleys and enjoying the cooler mountain environment.
+The viewpoint is particularly suitable for photography and travellers interested in Himalayan landscapes. A small temple and viewing facilities are also located near the viewpoint.
 
-The viewpoint is particularly suitable for travellers who want to experience the larger Himalayan landscape without undertaking a long trek.
-
-For EcoStay AI, Snow View Point represents the scenic and adventurous side of Nainital and gives visitors an opportunity to appreciate the mountains that surround the town.
+For EcoStay AI, Snow View Point represents the scenic and natural beauty of Nainital and provides travellers with an opportunity to experience the Himalayan landscape.
 `
-        },
+},
 
         {
             id: "tiffin-top",

@@ -15,33 +15,31 @@ import rudraprayag from "../data/districts/rudraprayag";
 import tehri from "../data/districts/tehri";
 import uttarkashi from "../data/districts/uttarkashi";
 
-
 function DistrictPage() {
     const { stateId, districtId } = useParams();
 
     // ================= ALL UTTARAKHAND DISTRICTS =================
 
-   const districts = {
-    almora,
-    bageshwar,
-    chamoli,
-    champawat,
-    dehradun,
-    haridwar,
-    nainital,
-    "pauri-garhwal": pauri,
-    pithoragarh,
-    rudraprayag,
-    "tehri-garhwal": tehri,
-    uttarkashi
-};
+    const districts = {
+        almora,
+        bageshwar,
+        chamoli,
+        champawat,
+        dehradun,
+        haridwar,
+        nainital,
+        "pauri-garhwal": pauri,
+        pithoragarh,
+        rudraprayag,
+        "tehri-garhwal": tehri,
+        uttarkashi
+    };
 
     // Only Uttarakhand is supported
     const district =
         stateId === "uttarakhand"
             ? districts[districtId]
             : null;
-
 
     // ================= DISTRICT NOT FOUND =================
 
@@ -75,12 +73,10 @@ function DistrictPage() {
         );
     }
 
-
     return (
         <div className="bg-[#f7f3eb] min-h-screen text-[#263528]">
 
             <Navbar />
-
 
             {/* =====================================================
                 DISTRICT HERO
@@ -97,7 +93,6 @@ function DistrictPage() {
                 {/* Dark overlay */}
 
                 <div className="absolute inset-0 bg-black/45"></div>
-
 
                 {/* Hero content */}
 
@@ -122,36 +117,57 @@ function DistrictPage() {
 
             </section>
 
-
             {/* =====================================================
                 ABOUT THE DISTRICT
             ====================================================== */}
 
-            <section className="max-w-5xl mx-auto px-6 py-20">
+            <section className="relative overflow-hidden">
 
-                <div className="text-center mb-10">
+                {/* Common background image */}
 
-                    <p className="text-[#b56b45] font-semibold uppercase tracking-[0.25em] text-sm">
-                        About the District
-                    </p>
+                <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{
+                        backgroundImage:
+                            "url('/images/about-district-bg.jpeg')",
+                    }}
+                ></div>
 
-                    <h2 className="text-4xl md:text-5xl font-bold mt-3 text-[#263528]">
-                        Discover {district.name}
-                    </h2>
+                {/* Soft overlay */}
 
-                </div>
+                <div className="absolute inset-0 bg-white/20"></div>
 
+                {/* Content */}
 
-                <div className="bg-white rounded-3xl shadow-sm border border-[#e5ded2] p-8 md:p-12">
+                <div className="relative z-10 max-w-5xl mx-auto px-6 py-20">
 
-                    <p className="text-[#4b5563] text-lg leading-8 whitespace-pre-line">
-                        {district.description}
-                    </p>
+                    {/* Section heading */}
+
+                    <div className="text-center mb-10">
+
+                        <p className="text-[#8f4f32] font-semibold uppercase tracking-[0.25em] text-sm drop-shadow-md">
+                            About the District
+                        </p>
+
+                        <h2 className="text-4xl md:text-5xl font-bold mt-3 text-[#263528] drop-shadow-sm">
+                            Discover {district.name}
+                        </h2>
+
+                    </div>
+
+                    {/* Description card */}
+
+                    <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/50 p-8 md:p-12">
+
+                        <p className="text-[#334155] text-lg leading-8 whitespace-pre-line">
+                            {district.description}
+                        </p>
+
+                    </div>
 
                 </div>
 
             </section>
-
 
             {/* =====================================================
                 TOURIST ATTRACTIONS
@@ -160,7 +176,6 @@ function DistrictPage() {
             <section className="bg-[#eee8dc] px-5 md:px-8 py-20">
 
                 <div className="max-w-7xl mx-auto">
-
 
                     {/* ================= SECTION HEADING ================= */}
 
@@ -181,7 +196,6 @@ function DistrictPage() {
 
                     </div>
 
-
                     {/* ================= LARGE ATTRACTION GRID ================= */}
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -201,7 +215,6 @@ function DistrictPage() {
                                 "
                             >
 
-
                                 {/* =================================================
                                     LARGE TOURIST PHOTO
                                 ================================================== */}
@@ -220,8 +233,15 @@ function DistrictPage() {
                                 >
 
                                     <img
-                                        src={place.image}
+                                        src={encodeURI(place.image)}
                                         alt={place.name}
+                                        onError={(e) => {
+                                            console.error(
+                                                "Image failed to load:",
+                                                place.name,
+                                                place.image
+                                            );
+                                        }}
                                         className="
                                             w-full
                                             h-full
@@ -234,13 +254,11 @@ function DistrictPage() {
 
                                 </div>
 
-
                                 {/* =================================================
                                     ATTRACTION INFORMATION
                                 ================================================== */}
 
                                 <div className="px-8 md:px-9 py-8">
-
 
                                     {/* Category + Number */}
 
@@ -264,7 +282,6 @@ function DistrictPage() {
 
                                     </div>
 
-
                                     {/* Attraction name */}
 
                                     <h3
@@ -279,7 +296,6 @@ function DistrictPage() {
                                     >
                                         {place.name}
                                     </h3>
-
 
                                     {/* Description */}
 
@@ -305,136 +321,163 @@ function DistrictPage() {
 
             </section>
 
-
             {/* =====================================================
                 HOMESTAYS
             ====================================================== */}
 
-            <section className="max-w-6xl mx-auto px-6 py-20">
+            <section className="relative overflow-hidden">
 
-                <div className="text-center mb-14">
+                {/* =================================================
+                    HOMESTAYS BACKGROUND IMAGE
+                ================================================== */}
 
-                    <p className="text-[#b56b45] font-semibold uppercase tracking-[0.25em] text-sm">
-                        Stay Like a Local
-                    </p>
+                <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{
+                        backgroundImage:
+                            "url('/images/homestays-bcg.jpg')",
+                    }}
+                ></div>
 
-                    <h2 className="text-4xl md:text-5xl font-bold mt-3 text-[#263528]">
-                        Homestays in {district.name}
-                    </h2>
+                {/* Soft overlay so text/cards remain readable */}
 
-                    <p className="text-gray-600 text-lg mt-4 max-w-2xl mx-auto">
-                        Experience the warmth of Pahadi hospitality and
-                        discover Uttarakhand through local homes and hosts.
-                    </p>
+                <div className="absolute inset-0 bg-white/10"></div>
 
-                </div>
+                {/* =================================================
+                    HOMESTAY CONTENT
+                ================================================== */}
 
+                <div className="relative z-10 max-w-6xl mx-auto px-6 py-20">
 
-                {/* ================= HOMESTAY CARDS ================= */}
+                    {/* Section Heading */}
 
-                {district.homestays?.length > 0 ? (
+                    <div className="text-center mb-14">
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <p className="text-[#b56b45] font-semibold uppercase tracking-[0.25em] text-sm">
+                            Stay Like a Local
+                        </p>
 
-                        {district.homestays.map((homestay) => (
+                        <h2 className="text-4xl md:text-5xl font-bold mt-3 text-[#263528]">
+                            Homestays in {district.name}
+                        </h2>
 
-                            <article
-                                key={homestay.id}
-                                className="
-                                    bg-white
-                                    rounded-3xl
-                                    overflow-hidden
-                                    shadow-md
-                                    hover:shadow-xl
-                                    transition
-                                    duration-300
-                                    border
-                                    border-[#e5ded2]
-                                "
-                            >
-
-                                {/* Homestay image */}
-
-                                <div className="h-56 overflow-hidden">
-
-                                    <img
-                                        src={homestay.image}
-                                        alt={homestay.name}
-                                        className="w-full h-full object-cover"
-                                    />
-
-                                </div>
-
-
-                                {/* Homestay details */}
-
-                                <div className="p-6">
-
-                                    <h3 className="text-xl font-bold text-[#263528]">
-                                        {homestay.name}
-                                    </h3>
-
-                                    <p className="text-gray-500 mt-2">
-                                        📍 {homestay.location}
-                                    </p>
-
-
-                                    {homestay.price && (
-
-                                        <p className="text-[#b56b45] font-semibold mt-3">
-                                            ₹{homestay.price} / night
-                                        </p>
-
-                                    )}
-
-
-                                    {homestay.rating && (
-
-                                        <p className="text-gray-600 mt-2">
-                                            ⭐ {homestay.rating}
-                                        </p>
-
-                                    )}
-
-
-                                    {homestay.description && (
-
-                                        <p className="text-gray-600 leading-7 mt-4">
-                                            {homestay.description}
-                                        </p>
-
-                                    )}
-
-                                </div>
-
-                            </article>
-
-                        ))}
-
-                    </div>
-
-                ) : (
-
-                    <div className="bg-[#eee8dc] rounded-3xl p-12 text-center">
-
-                        <div className="text-5xl mb-5">
-                            🏡
-                        </div>
-
-                        <h3 className="text-2xl font-bold text-[#263528]">
-                            Homestays Coming Soon
-                        </h3>
-
-                        <p className="text-gray-600 mt-3">
-                            We're adding local homestays in {district.name}.
+                        <p className="text-gray-700 text-lg mt-4 max-w-2xl mx-auto leading-8">
+                            Experience the warmth of Pahadi hospitality and
+                            discover Uttarakhand through local homes and hosts.
                         </p>
 
                     </div>
 
-                )}
+                    {/* ================= HOMESTAY CARDS ================= */}
+
+                    {district.homestays?.length > 0 ? (
+
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                            {district.homestays.map((homestay) => (
+
+                                <article
+                                    key={homestay.id}
+                                    className="
+                                        bg-white/95
+                                        backdrop-blur-sm
+                                        rounded-3xl
+                                        overflow-hidden
+                                        shadow-lg
+                                        hover:shadow-2xl
+                                        transition
+                                        duration-300
+                                        border
+                                        border-white/70
+                                    "
+                                >
+
+                                    {/* Homestay image */}
+
+                                    <div className="h-56 overflow-hidden">
+
+                                        <img
+                                            src={encodeURI(homestay.image)}
+                                            alt={homestay.name}
+                                            onError={(e) => {
+                                                console.error(
+                                                    "Homestay image failed to load:",
+                                                    homestay.name,
+                                                    homestay.image
+                                                );
+                                            }}
+                                            className="w-full h-full object-cover"
+                                        />
+
+                                    </div>
+
+                                    {/* Homestay details */}
+
+                                    <div className="p-6">
+
+                                        <h3 className="text-xl font-bold text-[#263528]">
+                                            {homestay.name}
+                                        </h3>
+
+                                        <p className="text-gray-500 mt-2">
+                                            📍 {homestay.location}
+                                        </p>
+
+                                        {homestay.price && (
+
+                                            <p className="text-[#b56b45] font-semibold mt-3">
+                                                ₹{homestay.price} / night
+                                            </p>
+
+                                        )}
+
+                                        {homestay.rating && (
+
+                                            <p className="text-gray-600 mt-2">
+                                                ⭐ {homestay.rating}
+                                            </p>
+
+                                        )}
+
+                                        {homestay.description && (
+
+                                            <p className="text-gray-600 leading-7 mt-4">
+                                                {homestay.description}
+                                            </p>
+
+                                        )}
+
+                                    </div>
+
+                                </article>
+
+                            ))}
+
+                        </div>
+
+                    ) : (
+
+                        <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-12 text-center shadow-lg">
+
+                            <div className="text-5xl mb-5">
+                                🏡
+                            </div>
+
+                            <h3 className="text-2xl font-bold text-[#263528]">
+                                Homestays Coming Soon
+                            </h3>
+
+                            <p className="text-gray-600 mt-3">
+                                We're adding local homestays in {district.name}.
+                            </p>
+
+                        </div>
+
+                    )}
+
+                </div>
 
             </section>
-
 
             {/* =====================================================
                 FOOTER
