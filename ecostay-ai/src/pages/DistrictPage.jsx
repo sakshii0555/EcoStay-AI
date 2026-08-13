@@ -21,6 +21,7 @@ import uttarkashi from "../data/districts/uttarkashi";
 function DistrictPage() {
     const { stateId, districtId } = useParams();
 
+
     // =====================================================
     // STATE
     // =====================================================
@@ -31,6 +32,9 @@ function DistrictPage() {
     const [isAdmin, setIsAdmin] = useState(false);
 
     const [showAddForm, setShowAddForm] = useState(false);
+
+    // Stores the homestay currently being edited
+    const [editingHomestay, setEditingHomestay] = useState(null);
 
     const [formData, setFormData] = useState({
         name: "",
@@ -108,7 +112,7 @@ function DistrictPage() {
                     return;
                 }
 
-                // Try to get role from JWT if user object wasn't stored
+                // Try to get role from JWT
                 const token =
                     localStorage.getItem("token") ||
                     localStorage.getItem("accessToken");
@@ -213,18 +217,20 @@ function DistrictPage() {
             rating: "",
             description: "",
         });
+
+        setEditingHomestay(null);
     };
 
 
     // =====================================================
-    // ADD HOMESTAY
+    // ADD / UPDATE HOMESTAY
     // =====================================================
 
-    const handleAddHomestay = async (e) => {
+    const handleSaveHomestay = async (e) => {
         e.preventDefault();
 
         if (!isAdmin) {
-            alert("Only admins can add homestays.");
+            alert("Only admins can manage homestays.");
             return;
         }
 
@@ -247,35 +253,181 @@ function DistrictPage() {
                 localStorage.getItem("accessToken");
 
             if (!token) {
-                alert("Authentication token not found. Please login again.");
+                alert(
+                    "Authentication token not found. Please login again."
+                );
+                return;
+            }
+
+            const isEditing = Boolean(editingHomestay);
+
+            const homestayId =
+                editingHomestay?._id ||
+                editingHomestay?.id;
+
+            const url = isEditing
+                ? `http://localhost:5000/api/homestays/${homestayId}`
+                : "http://localhost:5000/api/homestays";
+
+            const response = await fetch(url, {
+                method: isEditing ? "PUT" : "POST",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+
+                body: JSON.stringify({
+                    name: formData.name,
+                    location: formData.location,
+                    district: districtId,
+                    image: formData.image,
+                    price: Number(formData.price),
+                    rating: Number(formData.rating),
+                    description: formData.description,
+                }),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                alert(
+                    result.message ||
+                    (isEditing
+                        ? "Failed to update homestay."
+                        : "Failed to add homestay.")
+                );
+
+                return;
+            }
+
+            // UPDATE
+            if (isEditing) {
+                setHomestays((previous) =>
+                    previous.map((item) =>
+                        (item._id || item.id) === homestayId
+                            ? result.data
+                            : item
+                    )
+                );
+
+                alert("Homestay updated successfully!");
+            }
+
+            // ADD
+            else {
+                setHomestays((previous) => [
+                    result.data,
+                    ...previous,
+                ]);
+
+                alert("Homestay added successfully!");
+            }
+
+            resetForm();
+            setShowAddForm(false);
+
+        } catch (error) {
+
+            console.error(
+                isEditing
+                    ? "Error updating homestay:"
+                    : "Error adding homestay:",
+                error
+            );
+
+            alert(
+                isEditing
+                    ? "Something went wrong while updating the homestay."
+                    : "Something went wrong while adding the homestay."
+            );
+
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+
+    // =====================================================
+    // EDIT HOMESTAY
+    // =====================================================
+
+    const handleEditHomestay = (homestay) => {
+
+        if (!isAdmin) {
+            alert("Only admins can edit homestays.");
+            return;
+        }
+
+        setEditingHomestay(homestay);
+
+        setFormData({
+            name: homestay.name || "",
+            location: homestay.location || "",
+            image: homestay.image || "",
+            price: homestay.price ?? "",
+            rating: homestay.rating ?? "",
+            description: homestay.description || "",
+        });
+
+        setShowAddForm(true);
+
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: "smooth",
+        });
+    };
+
+
+    // =====================================================
+    // DELETE HOMESTAY
+    // =====================================================
+
+    const handleDeleteHomestay = async (homestay) => {
+
+        if (!isAdmin) {
+            alert("Only admins can delete homestays.");
+            return;
+        }
+
+        const homestayId =
+            homestay._id ||
+            homestay.id;
+
+        if (!homestayId) {
+            alert("Homestay ID not found.");
+            return;
+        }
+
+        const confirmed = window.confirm(
+            `Are you sure you want to delete "${homestay.name}"?`
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        try {
+
+            const token =
+                localStorage.getItem("token") ||
+                localStorage.getItem("accessToken");
+
+            if (!token) {
+                alert(
+                    "Authentication token not found. Please login again."
+                );
                 return;
             }
 
             const response = await fetch(
-                "http://localhost:5000/api/homestays",
+                `http://localhost:5000/api/homestays/${homestayId}`,
                 {
-                    method: "POST",
+                    method: "DELETE",
 
                     headers: {
-                        "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
-
-                    body: JSON.stringify({
-                        name: formData.name,
-                        location: formData.location,
-
-                        // Automatically use the current district
-                        district: districtId,
-
-                        image: formData.image,
-
-                        price: Number(formData.price),
-
-                        rating: Number(formData.rating),
-
-                        description: formData.description,
-                    }),
                 }
             );
 
@@ -284,36 +436,40 @@ function DistrictPage() {
             if (!response.ok) {
                 alert(
                     result.message ||
-                    "Failed to add homestay."
+                    "Failed to delete homestay."
                 );
 
                 return;
             }
 
-            // Add newly created homestay to the page immediately
-            setHomestays((previous) => [
-                result.data,
-                ...previous,
-            ]);
+            setHomestays((previous) =>
+                previous.filter(
+                    (item) =>
+                        (item._id || item.id) !== homestayId
+                )
+            );
 
-            resetForm();
+            if (
+                editingHomestay &&
+                (editingHomestay._id ||
+                    editingHomestay.id) === homestayId
+            ) {
+                resetForm();
+                setShowAddForm(false);
+            }
 
-            setShowAddForm(false);
-
-            alert("Homestay added successfully!");
+            alert("Homestay deleted successfully!");
 
         } catch (error) {
+
             console.error(
-                "Error adding homestay:",
+                "Error deleting homestay:",
                 error
             );
 
             alert(
-                "Something went wrong while adding the homestay."
+                "Something went wrong while deleting the homestay."
             );
-
-        } finally {
-            setSubmitting(false);
         }
     };
 
@@ -639,7 +795,12 @@ function DistrictPage() {
                         <div className="flex justify-end mb-8">
 
                             <button
-                                onClick={() => setShowAddForm(true)}
+                                type="button"
+                                onClick={() => {
+                                    setEditingHomestay(null);
+                                    resetForm();
+                                    setShowAddForm(true);
+                                }}
                                 className="
                                     bg-[#00a63c]
                                     hover:bg-[#008f35]
@@ -662,7 +823,7 @@ function DistrictPage() {
 
 
                     {/* =================================================
-                        ADD HOMESTAY FORM
+                        ADD / EDIT HOMESTAY FORM
                     ================================================== */}
 
                     {showAddForm && isAdmin && (
@@ -678,14 +839,21 @@ function DistrictPage() {
                                     </p>
 
                                     <h3 className="text-2xl md:text-3xl font-bold text-[#263528] mt-1">
-                                        Add Homestay
+                                        {editingHomestay
+                                            ? "Edit Homestay"
+                                            : "Add Homestay"}
                                     </h3>
 
                                     <p className="text-gray-500 mt-1">
-                                        Adding homestay to{" "}
+
+                                        {editingHomestay
+                                            ? "Updating homestay in "
+                                            : "Adding homestay to "}
+
                                         <span className="font-semibold">
                                             {district.name}
                                         </span>
+
                                     </p>
 
                                 </div>
@@ -711,7 +879,7 @@ function DistrictPage() {
 
 
                             <form
-                                onSubmit={handleAddHomestay}
+                                onSubmit={handleSaveHomestay}
                                 className="grid grid-cols-1 md:grid-cols-2 gap-5"
                             >
 
@@ -949,8 +1117,12 @@ function DistrictPage() {
                                         "
                                     >
                                         {submitting
-                                            ? "Adding..."
-                                            : "Add Homestay"}
+                                            ? editingHomestay
+                                                ? "Updating..."
+                                                : "Adding..."
+                                            : editingHomestay
+                                                ? "Update Homestay"
+                                                : "Add Homestay"}
                                     </button>
 
                                 </div>
@@ -981,7 +1153,6 @@ function DistrictPage() {
                         </div>
 
                     ) : homestays.length > 0 ? (
-
 
                         /* =================================================
                             HOMESTAY CARDS
@@ -1061,6 +1232,68 @@ function DistrictPage() {
                                             </p>
                                         )}
 
+
+                                        {/* =====================================
+                                            ADMIN ACTION BUTTONS
+                                        ====================================== */}
+
+                                        {isAdmin && (
+
+                                            <div className="flex gap-3 mt-6 pt-5 border-t border-gray-200">
+
+                                                {/* EDIT */}
+
+                                                <button
+                                                    type="button"
+                                                    onClick={() =>
+                                                        handleEditHomestay(
+                                                            homestay
+                                                        )
+                                                    }
+                                                    className="
+                                                        flex-1
+                                                        px-4
+                                                        py-2.5
+                                                        rounded-xl
+                                                        bg-blue-600
+                                                        hover:bg-blue-700
+                                                        text-white
+                                                        font-semibold
+                                                        transition
+                                                    "
+                                                >
+                                                    ✏️ Edit
+                                                </button>
+
+
+                                                {/* DELETE */}
+
+                                                <button
+                                                    type="button"
+                                                    onClick={() =>
+                                                        handleDeleteHomestay(
+                                                            homestay
+                                                        )
+                                                    }
+                                                    className="
+                                                        flex-1
+                                                        px-4
+                                                        py-2.5
+                                                        rounded-xl
+                                                        bg-red-600
+                                                        hover:bg-red-700
+                                                        text-white
+                                                        font-semibold
+                                                        transition
+                                                    "
+                                                >
+                                                    🗑️ Delete
+                                                </button>
+
+                                            </div>
+
+                                        )}
+
                                     </div>
 
                                 </article>
@@ -1071,7 +1304,6 @@ function DistrictPage() {
 
 
                     ) : (
-
 
                         /* =================================================
                             NO HOMESTAYS
