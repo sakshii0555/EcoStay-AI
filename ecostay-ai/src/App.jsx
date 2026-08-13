@@ -10,14 +10,25 @@ import AIPlanner from "./pages/AIPlanner";
 import Statepage from "./pages/Statepage";
 import DistrictPage from "./pages/DistrictPage";
 import Explore from "./pages/Explore";
-
+import BookHomestay from "./pages/BookHomestay";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Profile from "./pages/Profile";
 
 function App() {
     return (
         <BrowserRouter>
 
             <Routes>
+
+                <Route
+    path="/book-homestay/:homestayId"
+    element={<BookHomestay />}
+/>
+
+<Route
+    path="/profile"
+    element={<Profile />}
+/>
 
                 {/* ================= HOME ================= */}
 
