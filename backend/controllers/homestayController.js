@@ -1,9 +1,13 @@
 const Homestay = require("../models/Homestay");
 
-// GET All Homestays - PUBLIC
+// ============================================================
+// GET ALL HOMESTAYS - PUBLIC
+// ============================================================
+
 const getAllHomestays = async (req, res, next) => {
   try {
-    const homestays = await Homestay.find();
+    const homestays = await Homestay.find()
+      .sort({ createdAt: -1 });
 
     res.status(200).json({
       success: true,
@@ -15,7 +19,36 @@ const getAllHomestays = async (req, res, next) => {
   }
 };
 
-// GET Single Homestay
+
+// ============================================================
+// GET HOMESTAYS BY DISTRICT - PUBLIC
+// ============================================================
+
+const getHomestaysByDistrict = async (req, res, next) => {
+  try {
+    const district = req.params.district
+      .toLowerCase()
+      .trim();
+
+    const homestays = await Homestay.find({
+      district: district,
+    }).sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      message: "District homestays fetched successfully",
+      data: homestays,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+// ============================================================
+// GET SINGLE HOMESTAY - PUBLIC
+// ============================================================
+
 const getHomestayById = async (req, res, next) => {
   try {
     const homestay = await Homestay.findById(req.params.id);
@@ -36,11 +69,46 @@ const getHomestayById = async (req, res, next) => {
   }
 };
 
-// CREATE Homestay
+
+// ============================================================
+// CREATE HOMESTAY - ADMIN ONLY
+// ============================================================
+
 const createHomestay = async (req, res, next) => {
   try {
+    const {
+      name,
+      location,
+      district,
+      image,
+      price,
+      rating,
+      description,
+    } = req.body;
+
+    // Check required fields
+    if (
+      !name ||
+      !location ||
+      !district ||
+      !image ||
+      price === undefined ||
+      rating === undefined
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide all required homestay details.",
+      });
+    }
+
     const homestay = await Homestay.create({
-      ...req.body,
+      name,
+      location,
+      district: district.toLowerCase().trim(),
+      image,
+      price,
+      rating,
+      description: description || "",
       user: req.user.id,
     });
 
@@ -54,15 +122,27 @@ const createHomestay = async (req, res, next) => {
   }
 };
 
-// UPDATE Homestay
+
+// ============================================================
+// UPDATE HOMESTAY - ADMIN ONLY
+// ============================================================
+
 const updateHomestay = async (req, res, next) => {
   try {
-    const homestay = await Homestay.findOneAndUpdate(
-      {
-        _id: req.params.id,
-        user: req.user.id,
-      },
-      req.body,
+    const updateData = {
+      ...req.body,
+    };
+
+    // Normalize district if it is being updated
+    if (updateData.district) {
+      updateData.district = updateData.district
+        .toLowerCase()
+        .trim();
+    }
+
+    const homestay = await Homestay.findByIdAndUpdate(
+      req.params.id,
+      updateData,
       {
         new: true,
         runValidators: true,
@@ -86,13 +166,16 @@ const updateHomestay = async (req, res, next) => {
   }
 };
 
-// DELETE Homestay
+
+// ============================================================
+// DELETE HOMESTAY - ADMIN ONLY
+// ============================================================
+
 const deleteHomestay = async (req, res, next) => {
   try {
-    const homestay = await Homestay.findOneAndDelete({
-      _id: req.params.id,
-      user: req.user.id,
-    });
+    const homestay = await Homestay.findByIdAndDelete(
+      req.params.id
+    );
 
     if (!homestay) {
       return res.status(404).json({
@@ -110,17 +193,21 @@ const deleteHomestay = async (req, res, next) => {
   }
 };
 
-// SEARCH by Location
+
+// ============================================================
+// SEARCH HOMESTAYS BY LOCATION - PUBLIC
+// ============================================================
+
 const searchHomestays = async (req, res, next) => {
   try {
     const { location } = req.query;
 
     const homestays = await Homestay.find({
       location: {
-        $regex: location,
+        $regex: location || "",
         $options: "i",
       },
-    });
+    }).sort({ createdAt: -1 });
 
     res.status(200).json({
       success: true,
@@ -131,8 +218,14 @@ const searchHomestays = async (req, res, next) => {
   }
 };
 
+
+// ============================================================
+// EXPORTS
+// ============================================================
+
 module.exports = {
   getAllHomestays,
+  getHomestaysByDistrict,
   getHomestayById,
   createHomestay,
   updateHomestay,

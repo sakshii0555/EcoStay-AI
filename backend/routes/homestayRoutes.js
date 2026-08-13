@@ -6,6 +6,7 @@ const adminOnly = require("../middleware/adminMiddleware");
 
 const {
   getAllHomestays,
+  getHomestaysByDistrict,
   getHomestayById,
   createHomestay,
   updateHomestay,
@@ -13,12 +14,16 @@ const {
   searchHomestays,
 } = require("../controllers/homestayController");
 
-// ==============================
+
+// =====================================================
 // PUBLIC ROUTES
-// ==============================
+// =====================================================
 
 // Search Homestays
 router.get("/search", searchHomestays);
+
+// Get Homestays by District
+router.get("/district/:district", getHomestaysByDistrict);
 
 // Get All Homestays
 router.get("/", getAllHomestays);
@@ -27,9 +32,9 @@ router.get("/", getAllHomestays);
 router.get("/:id", getHomestayById);
 
 
-// ==============================
+// =====================================================
 // ADMIN ONLY ROUTES
-// ==============================
+// =====================================================
 
 // Create Homestay
 router.post("/", protect, adminOnly, createHomestay);

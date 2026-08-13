@@ -20,6 +20,14 @@ const homestaySchema = new mongoose.Schema(
       trim: true,
     },
 
+    // District this homestay belongs to
+    district: {
+      type: String,
+      required: true,
+      trim: true,
+      lowercase: true,
+    },
+
     image: {
       type: String,
       required: true,
@@ -35,6 +43,12 @@ const homestaySchema = new mongoose.Schema(
       required: true,
       min: 0,
       max: 5,
+    },
+
+    description: {
+      type: String,
+      default: "",
+      trim: true,
     },
   },
   {
