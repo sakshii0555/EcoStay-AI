@@ -226,21 +226,27 @@ EcoStay-AI/
 
 ### 🏠 Home Page
 
-![EcoStay AI Home Page](screenshots/home.png)
+The EcoStay AI landing page introduces the platform and provides direct access to homestay discovery, authentication, and the AI Planner.
 
-### 🗺️ Destination Exploration
+![EcoStay AI Home Page](screenshots/home-page.png)
 
-![Destination Exploration](screenshots/destination.png)
+### 🤖 Pahadi Buddy — AI Travel Assistant
 
-### 🤖 AI Travel Planner
+Pahadi Buddy provides an interactive AI travel-assistance experience focused on exploring Uttarakhand destinations.
 
-![AI Travel Planner](screenshots/AIPlanner.png)
+![Pahadi Buddy AI Assistant](screenshots/pahadi-buddy.png)
 
-### 🔐 Registration
+### 🔐 Login
 
-![Registration Page](screenshots/Register.png)
+The authentication interface provides separate user and admin login options.
 
----
+![EcoStay AI Login Page](screenshots/login-page.png)
+
+### 🏔️ Explore Uttarakhand
+
+The Explore page presents Uttarakhand's 13 districts and allows users to discover destinations district by district.
+
+![Explore Uttarakhand](screenshots/explore-uttarakhand.png)
 
 ## 🔌 Important API Endpoints
 
